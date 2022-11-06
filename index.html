@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <title>Triad v0.2.0</title>
+    </head>
+    <body>
+        <div class="table">
+
+            <div class="opp-bar">
+
+                <div id="opp-stock" class="opp-stock pile" data-pile="opp-stock">
+                    <i class="empty-icon">
+                        opp-stock
+                    </i>
+                    <ul></ul>
+                </div>
+
+                <ul id="opp-hand" class="opp-hand">
+                    <li class="opp-card pile" data-pile="opp-card1">opp-card1
+                        <ul></ul>
+                    </li>
+                    <li class="opp-card pile" data-pile="opp-card2">opp-card2
+                        <ul></ul>
+                    </li>
+                    <li class="opp-card pile" data-pile="opp-card3">opp-card3
+                        <ul></ul>
+                    </li>
+                    <li class="opp-card pile" data-pile="opp-card4">opp-card4
+                        <ul></ul>
+                    </li>
+                    <li class="opp-card pile" data-pile="opp-card5">opp-card5
+                        <ul></ul>
+                    </li>
+                </ul>
+
+                <div id="opp-waste" class="opp-waste pile" data-pile="opp-waste">
+                    opp-waste
+                    <ul></ul>
+                </div>
+
+            </div>
+
+            <div class="board">
+
+                <ul id="opp-claimed" class="opp-claimed">
+                    <li class="opp pile" data-pile="oc1">
+                        oc1
+                        <ul></ul>
+                    </li>
+                    <li class="opp pile" data-pile="oc2">
+                        oc2
+                        <ul></ul>
+                    </li>
+                    <li class="opp pile" data-pile="oc3">
+                        oc3
+                        <ul></ul>
+                    </li>
+                    <li class="opp pile" data-pile="oc4">
+                        oc4
+                        <ul></ul>
+                    </li>
+                </ul>
+
+                <div id="main" class="main">
+                    <div class="pile" data-pile="1">1
+                        <ul></ul>
+                    </div>
+                    <div class="pile" data-pile="2">2
+                        <ul></ul>
+                    </div>
+                    <div class="pile" data-pile="3">3
+                        <ul></ul>
+                    </div>
+                    <div class="pile" data-pile="4">4
+                        <ul></ul>
+                    </div>
+                    <div class="pile" data-pile="5">5
+                        <ul></ul>
+                    </div>
+                    <div class="pile" data-pile="6">6
+                        <ul></ul>
+                    </div>
+                    <div class="pile" data-pile="7">7
+                        <ul></ul>
+                    </div>
+                    <div class="pile" data-pile="8">8
+                        <ul></ul>
+                    </div>
+                    <div class="pile" data-pile="9">9
+                        <ul></ul>
+                    </div>
+                </div>
+
+                <ul id="player-claimed" class="player-claimed">
+                    <li class="player pile" data-pile="pc1">
+                        pc1
+                        <ul></ul>
+                    </li>
+                    <li class="player pile" data-pile="pc2">
+                        pc2
+                        <ul></ul>
+                    </li>
+                    <li class="player pile" data-pile="pc3">
+                        pc3
+                        <ul></ul>
+                    </li>
+                    <li class="player pile" data-pile="pc4">
+                        pc4
+                        <ul></ul>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="player-bar">
+
+                <div id="player-stock" class="player-stock pile" data-pile="player-stock">
+                    <i class="empty-icon">
+                        player-stock
+                    </i>
+                    <ul></ul>
+                </div>
+
+                <ul id="player-hand" class="player-hand">
+                    <li class="player-card pile" data-pile="player-card1">player-card1
+                        <ul></ul>
+                    </li>
+                    <li class="player-card pile" data-pile="player-card2">player-card2
+                        <ul></ul>
+                    </li>
+                    <li class="player-card pile" data-pile="player-card3">player-card3
+                        <ul></ul>
+                    </li>
+                    <li class="player-card pile" data-pile="player-card4">player-card4
+                        <ul></ul>
+                    </li>
+                    <li class="player-card pile" data-pile="player-card5">player-card5
+                        <ul></ul>
+                    </li>
+                </ul>
+
+                <div id="player-waste" class="player-waste pile" data-pile="player-waste">
+                    Waste
+                    <ul></ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <ul class="template">
+            <li class="player">
+                <div class="corner top">
+                    <span class="up"></span>
+                    <span class="right"></span>
+                    <span class="down"></span>
+                    <span class="left"></span>
+                </div>
+                <div class="image"></div>
+                <div class="name"></div>
+            </li>
+            <li class="opponent">
+                <div class="corner top">
+                    <span class="up"></span>
+                    <span class="right"></span>
+                    <span class="down"></span>
+                    <span class="left"></span>
+                </div>
+                <div class="image"></div>
+                <div class="name"></div>
+            </li>
+        </ul>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>
