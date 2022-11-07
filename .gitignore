@@ -2,5 +2,5 @@
 /test.*
 
 # ignore images
-/images.*
+/images
 

@@ -5,7 +5,19 @@ body {
     margin: 0;
 }
 
-div {
+img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.corner-top {
+    z-index: 999;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+div, .pile {
     border: 1px solid black;
     padding: 1px;
 }
@@ -18,13 +30,13 @@ div {
     width: calc(100vw - 1px);
 }
 
-.bar {
+.opp-bar, .player-bar {
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
 
-.hand {
+.opp-hand, .player-hand {
     display: flex;
 }
 
@@ -44,7 +56,8 @@ div {
     height: calc(25.5em * 1.35);
 }
 
-.claimed {
+.opp-claimed,
+.player-claimed {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -54,10 +67,13 @@ div {
     height: calc(17em *1.4)
 }
 
-.stock,
-.waste,
+.opp-deck,
+.opp-waste,
+.player-deck,
+.player-waste,
 .card,
-.cell {
+.pile,
+img {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -66,21 +82,24 @@ div {
     height: calc(8em * 1.4);
 }
 
-.stock.opponent,
-.waste.player {
+.opp-deck,
+.player-waste {
     margin-left: 7.5%;
 }
 
-.waste.opponent,
-.stock.player {
+.opp-waste,
+.player-deck {
     margin-right: 7.5%;
 }
 
 @media screen and (max-width: 1280px) {
-    .stock,
-    .waste,
+    .opp-deck,
+    .player-deck,
+    .opp-waste,
+    .player-waste,
     .card,
-    .cell {
+    .pile,
+    img {
         width: 10vw;
         height: calc(10vw * 1.4);
     }
@@ -90,7 +109,8 @@ div {
         height: calc(33vw * 1.4);
     }
 
-    .claimed {
+    .opp-claimed,
+    .player-claimed {
         width: 21.5vw;
         height: calc(21.5vw * 1.4);
     }
@@ -101,10 +121,12 @@ div {
         justify-content: space-around;
     }
 
-    .stock,
-    .waste,
+    .opp-deck,
+    .player-deck,
+    .opp-waste,
+    .player-waste,
     .card,
-    .cell {
+    .pile {
         width: 13vw;
         height: calc(13vw * 1.4);
     }
@@ -114,23 +136,29 @@ div {
         height: calc(47vw * 1.4);
     }
 
-    .stock.opponent,
-    .waste.player {
+    .opp-deck,
+    .player-deck.opponent,
+    .opp-waste,
+    .player-waste {
         margin-left: 0;
     }
 
-    .waste.opponent,
-    .stock.player {
+    .opp-waste,
+    .player-waste,
+    .opp-deck,
+    .player-deck {
         margin-right: 0;
     }
 }
 
 @media screen and (min-aspect-ratio: 16/8) {
 
-    .stock,
-    .waste,
+    .opp-deck,
+    .player-deck,
+    .opp-waste,
+    .player-waste,
     .card,
-    .cell {
+    .pile {
         width: 6vw;
         height: calc(6vw * 1.4);
     }
@@ -140,7 +168,8 @@ div {
         height: calc(19.5vw * 1.4);
     }
 
-    .claimed {
+    .opp-claimed,
+    .player-claimed {
         width: 13vw;
         height: calc(13vw * 1.4);
     }
@@ -148,10 +177,12 @@ div {
 
 @media screen and (min-aspect-ratio: 16/7) {
 
-    .stock,
-    .waste,
+    .opp-deck,
+    .player-deck,
+    .opp-waste,
+    .player-waste,
     .card,
-    .cell {
+    .pile {
         width: 5vw;
         height: calc(5vw * 1.4);
     }
@@ -161,22 +192,69 @@ div {
         height: calc(16.5vw * 1.4);
     }
 
-    .claimed {
+    .opp-claimed,
+    .player-claimed {
         width: 11vw;
         height: calc(11vw * 1.4);
     }
 }
 
-#player li.card {
-    background: blue;
-    height:100%;
-    width:100%;
+.card {
+    border: 1px solid black;
+    display: block;
+    margin: 1px;
+    z-index: -1;
+    position: relative;
 }
 
-.opponent li.card {
-    background: red;
-    height: 100%;
-    width: 100%;
+.card[data-owner="player"] {
+
 }
 
+.card[data-owner="opp"] {
+}
 
+.card[data-facedown="true"] {
+    background-image: url("./images/back.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.card[data-facedown="true"] img[src$=".png"] {
+    display: none;
+}
+
+.card[data-facedown="true"] .corner-top{
+    display: none;
+}
+
+.template {
+    display: none;
+}
+
+.player-deck li:nth-child(1),
+.opp-deck li:nth-child(1) {
+    position:absolute;
+    z-index: 1;
+}
+
+.player-deck li:nth-child(2),
+.opp-deck li:nth-child(1) {
+    position: absolute;
+    z-index: 2;
+}
+.player-deck li:nth-child(3),
+.opp-deck li:nth-child(1) {
+    position: absolute;
+    z-index: 3;
+}
+.player-deck li:nth-child(4),
+.opp-deck li:nth-child(1) {
+    position: absolute;
+    z-index: 4;
+}
+.player-deck li:nth-child(5),
+.opp-deck li:nth-child(1) {
+     position:absolute;
+    z-index: 5;
+}
