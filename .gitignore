@@ -1,3 +1,6 @@
 # ignore test files
 /test.*
 
+# ignore images
+/images.*
+
