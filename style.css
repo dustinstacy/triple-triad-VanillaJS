@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "kolkerBrush";
+    src: url("./fonts/grunge.ttf")
+}
+
 body {
     display: flex;
     height: 100vh;
@@ -10,11 +15,38 @@ img {
     max-width: 100%;
 }
 
-.corner-top {
+span {
+    font-size: 1.1rem;
+    font-family: "kolkerBrush";
+}
+
+span {
     z-index: 999;
     position: absolute;
     right: 0;
     top: 0;
+    margin-top: 6%;
+    margin-right: 12%;
+    color: rgb(237, 234, 234);
+}
+
+.up {
+    margin-right: 1.6em;
+    margin-top: 0.6em;
+}
+
+.left {
+    margin-right: 2.3em;
+    margin-top: 1.1em;
+}
+
+.right {
+    margin-top: 1.1em;
+}
+
+.down {
+    margin-right: 1.6em;
+    margin-top: 1.7em;
 }
 
 div, .pile {
@@ -211,11 +243,15 @@ img {
 .card[data-owner="player"] {
     background: rgb(255, 255, 255);
     background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(10, 109, 245, 1) 100%);
+    background-size: cover;
+        background-repeat: no-repeat;
 }
 
 .card[data-owner="opp"] {
     background: rgb(255, 255, 255);
     background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 0, 0, 1) 100%);
+    background-size: cover;
+        background-repeat: no-repeat;
 }
 
 .card[data-facedown="true"] {
@@ -228,7 +264,7 @@ img {
     display: none;
 }
 
-.card[data-facedown="true"] .corner-top{
+.card[data-facedown="true"] span{
     display: none;
 }
 
@@ -262,3 +298,9 @@ img {
      position:absolute;
     z-index: 5;
 }
+
+li.card:hover,
+#ph > *:hover {
+    transform: scale(125%);
+}
+

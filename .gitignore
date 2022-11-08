@@ -6,3 +6,6 @@
 
 # ignore console html
 /console.html
+
+# ignore fonts
+/fonts

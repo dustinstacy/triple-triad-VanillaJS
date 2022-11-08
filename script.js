@@ -3,7 +3,7 @@ const Cards = [
   {
     "id": 01,
     "name": 'Raven',
-    "image": '/images/.png',
+    "image": './images/card1.png',
     "up": 1,
     "right": 4,
     "down": 7,
@@ -12,16 +12,16 @@ const Cards = [
   {
     "id": 02,
     "name": 'Crow',
-    "image": '/images/.png',
+    "image": './images/card2.png',
     "up": 7,
-    "right": 'A',
+    "right": 9,
     "down": 8,
     "left": 3,
   },
   {
     "id": 03,
     "name": 'Blackbird',
-    "image": '/images/.png',
+    "image": './images/card3.png',
     "up": 3,
     "right": 3,
     "down": 2,
@@ -30,7 +30,7 @@ const Cards = [
   {
     "id": 04,
     "name": 'Hawk',
-    "image": '/images/.png',
+    "image": './images/card4.png',
     "up": 5,
     "right": 1,
     "down": 2,
@@ -39,7 +39,7 @@ const Cards = [
   {
     "id": 05,
     "name": 'Pigeon',
-    "image": '/images/.png',
+    "image": './images/card5.png',
     "up": 2,
     "right": 3,
     "down": 1,
@@ -48,7 +48,7 @@ const Cards = [
   {
     "id": 06,
     "name": 'Peacock',
-    "image": '/images/.png',
+    "image": './images/card6.png',
     "up": 3,
     "right": 2,
     "down": 2,
@@ -57,7 +57,7 @@ const Cards = [
   {
     "id": 07,
     "name": 'Eagle',
-    "image": '/images/.png',
+    "image": './images/card7.png',
     "up": 2,
     "right": 2,
     "down": 6,
@@ -66,7 +66,7 @@ const Cards = [
   {
     "id": 08,
     "name": 'Falcon',
-    "image": '/images/.png',
+    "image": './images/card8.png',
     "up": 5,
     "right": 7,
     "down": 1,
@@ -75,7 +75,7 @@ const Cards = [
   {
     "id": 09,
     "name": 'Pelican',
-    "image": '/images/.png',
+    "image": './images/card9.png',
     "up": 6,
     "right": 2,
     "down": 2,
@@ -84,7 +84,7 @@ const Cards = [
   {
     "id": 10,
     "name": 'Penguin',
-    "image": '/images/.png',
+    "image": './images/card10.png',
     "up": 5,
     "right": 3,
     "down": 3,
@@ -93,7 +93,7 @@ const Cards = [
   {
     "id": 11,
     "name": 'Dragon',
-    "image": '/images/.png',
+    "image": './images/card11.png',
     "up": 3,
     "right": 2,
     "down": 4,
@@ -102,7 +102,7 @@ const Cards = [
   {
     "id": 12,
     "name": 'Viper',
-    "image": '/images/.png',
+    "image": './images/card12.png',
     "up": 4,
     "right": 5,
     "down": 4,
@@ -111,7 +111,7 @@ const Cards = [
   {
     "id": 13,
     "name": 'Cobra',
-    "image": '/images/.png',
+    "image": './images/card13.png',
     "up": 6,
     "right": 6,
     "down": 6,
@@ -120,7 +120,7 @@ const Cards = [
   {
     "id": 14,
     "name": 'Boa',
-    "image": '/images/.png',
+    "image": './images/card14.png',
     "up": 8,
     "right": 5,
     "down": 8,
@@ -129,16 +129,16 @@ const Cards = [
   {
     "id": 15,
     "name": 'Garter',
-    "image": '/images/.png',
+    "image": './images/card15.png',
     "up": 7,
-    "right": 10,
+    "right": 9,
     "down": 5,
     "left": 7,
   },
   {
     "id": 16,
     "name": 'Asp',
-    "image": '/images/.png',
+    "image": './images/card16.png',
     "up": 5,
     "right": 2,
     "down": 1,
@@ -147,8 +147,8 @@ const Cards = [
   {
     "id": 17,
     "name": 'Shovel-snout',
-    "image": '/images/.png',
-    "up": 10,
+    "image": './images/card17.png',
+    "up": 9,
     "right": 4,
     "down": 8,
     "left": 8,
@@ -156,7 +156,7 @@ const Cards = [
   {
     "id": 18,
     "name": 'Split-jaw',
-    "image": '/images/.png',
+    "image": './images/card18.png',
     "up": 4,
     "right": 8,
     "down": 7,
@@ -165,7 +165,7 @@ const Cards = [
   {
     "id": 19,
     "name": 'Mexican Burrowing',
-    "image": '/images/.png',
+    "image": './images/card19.png',
     "up": 3,
     "right": 5,
     "down": 5,
@@ -174,7 +174,7 @@ const Cards = [
   {
     "id": 20,
     "name": 'False Coral',
-    "image": '/images/.png',
+    "image": './images/card20.png',
     "up": 1,
     "right": 8,
     "down": 2,
@@ -200,7 +200,7 @@ let opponentClaimedBoard = []
 let playerClaimedBoard = []
 
 // build table
-let table = [];
+const table = [];
 table['pd'] = playerDeck;
 table['ph'] = playerHand;
 table['pw'] = playerWaste;
@@ -252,10 +252,9 @@ createDecks(Cards, playerDeck, opponentDeck);
 // 3. Deal Deck
 deal(playerDeck, playerHand);
 deal(opponentDeck, opponentHand);
-renderTable(table);
 
 // // 4. Render Table
-// render(table);
+renderTable(table);
 
 // 5. Start Game
 // play(table);
@@ -296,21 +295,17 @@ function deal(source, dest) {
 
 // render table
 function renderTable(table) {
-    // console.log("Rendering Table...");
-    // check for played cards
-    // playedCards = checkForPlayedCards(playedCards);
-    // check for empty piles
-    // emptyPiles = checkForEmptyPiles(table);
     for (let pile in table) {
         let selector = `#${pile}`
         pile = table[`${pile}`];
         for (let card in pile) {
             card = pile[card];
-            let html = d.querySelector('.template');
-            createCard(card, selector, html);
-        }
-    }
-    return table;
+            let html = d.querySelector('.template').innerHTML;
+          createCard(card, selector, html);
+      }
+  }
+  flipCards();
+  return table;
 }
 
 // create card in pile
@@ -318,21 +313,23 @@ function createCard(card, selector, html, append) {
   // store object values in variables
   let element = d.createElement('li');
   let image = d.createElement('img');
-  image.src = card.image;
-  let up = card.up;
-  let right = card.right;
-  let down = card.down;
-  let left = card.left;
+  let up = d.createElement('span');
+  up.classList.add('up');
+  let down = d.createElement('span');
+  down.classList.add('down');
+  let right = d.createElement('span');
+  right.classList.add('right');
+  let left = d.createElement('span');
+  left.classList.add('left');
   let name = card.name;
+  // set html values based on object values
+  image.src = card.image;
+  up.innerText = card.up;
+  right.innerText = card.right;
+  down.innerText = card.down;
+  left.innerText = card.left;
   // assign html data to new list element
   element.className = 'card';
-  if (selector == '#ph') {
-    element.dataset.owner = 'player';
-  } else if (selector == '#oh') {
-    element.dataset.owner = 'opp';
-  } else {
-  element.dataset.facedown = 'true';
-  }
   element.dataset.pile = selector;
   element.dataset.name = name;
   element.dataset.image = image;
@@ -348,153 +345,33 @@ function createCard(card, selector, html, append) {
   if (append) pile.appendChild(element);
   else pile.insertBefore(element, pile.firstChild);
   element.appendChild(image);
-  console.log(element);
+  element.appendChild(up);
+  element.appendChild(left);
+  element.appendChild(right);
+  element.appendChild(down);
+  // setCardValues();
   return;
 }
 
-    // // update stocks
-    // update(table['ps'], '#player-stock ul', true);
-    // update(table['os'], '#opp-stock ul', true);
-    // // update wastes
-    // update(table['pw'], '#player-waste ul');
-    // update(table['ow'], '#opp-waste ul');
-    // // update hands
-    // let ph = table['ph'];
-    // let oh = table['oh'];
-    // // loop through hand piles
-    // for (let i = 1; i <= 5; i++) {
-    //     update(ph[i], '#player-hand li:nth-child(' + i + ') ul', true);
-    //     update(oh[i], '#opp-hand li:nth-child(' + i + ') ul', true);
-    // }
-    // // update boards
-    // let main = table['main'];
-    // for (let i = 1; i <= 9; i++) {
-    //     update(main[i], '#main li:nth-child('+i+') ul')
-    // }
-    // let pc = table['pc'];
-    // let oc = table['oc'];
-    // for (let i = 1; i <= pc.length; i++) {
-    //     update(pc[i], '#player-claimed li:nth-child(' + i + ') ul');
-    //     update(oc[i], '#opponent-claimed li:nth-child(' + i + ') ul');
-    // }
-//     return table;
-// }
-
-
-// // update piles
-// function update(pile, selector, append) {
-//     // console.log("Updating Table...");
-//     // loop through cards in pile
-//     for (let card in pile) {
-//         card = pile[card];
-//         // get html
-//         let html = getTemplate(card);
-//         // create card
-//         createCard(card, selector, html, append)
-//     }
-//     // flip cards
-//     // flipCards(playedCards, 'up')
-//     return pile;
-// }
-
-
-
-
-
-
+// // flip cards
+function flipCards(selector) {
+  let cards = d.querySelectorAll('.card');
+  let cardsArray = Array.prototype.slice.call(cards);
+  for (let card in cardsArray) {
+    card = cardsArray[card];
+    if (card.dataset.pile == '#ph') {
+      card.dataset.facedown = 'false';
+      card.dataset.owner = 'player';
+    } else {
+      card.dataset.facedown = 'true';
+    }
+  }
+}
 
 // // check for played cards
 // function checkForPlayedCards(playedCards) {
 //     // console.log("Checking For Showing Cards...");
 //     let elements = d.querySelectorAll('.card[data-player="true"]');
-// }
-
-
-// // // check for empty piles
-// function checkForEmptyPiles(table) {
-//     // console.log("Checking For Empty Piles...");
-//     // reset empty data on all piles
-//     let elements = d.querySelectorAll('.pile');
-//     for (let element in elements) {
-//         element = elements[element];
-//         if (element.nodeType) {
-//             delete element.dataset.empty;
-//         }
-//     }
-//     // declare variable with fake pile
-//     let emptyPiles = '#fake.pile';
-//     // check stocks
-//     if (table['ps'].length === 0) {
-//         emptyPiles += ', .deck.player.pile';
-//     }
-//         if (table['os'].length === 0) {
-//         emptyPiles += ', .deck.opponent.pile';
-//     }
-//     // check wastes
-//     if (table['pw'].length === 0) {
-//         emptyPiles += ', .waste.player.pile';
-//     }
-//         if (table['ow'].length === 0) {
-//         emptyPiles += ', .waste.opponent.pile';
-//     }
-//     // check hands
-//     let ph = table['ph'];
-//     let oh = table['oh'];
-//     // loop through hand piles
-//     for (let i = 1; i < ph.length; i++) {
-//         if (ph[i].length === 0) {
-//             emptyPiles += ', #player-hand li:nth-child(' + i + ').pile';
-//         }
-//         if (oh[i].length === 0) {
-//             emptyPiles += ', #opp-hand li:nth-child(' + i + ').pile';
-//         }
-//     }
-//     // update boards
-//     let main = table['main'];
-//     for (let i = 1; i < main.length; i++) {
-//         if (main[i].length === 0) {
-//             emptyPiles += ', #main li:nth-child(' + i + ').pile';
-//         }
-//     }
-//     let pc = table['pc'];
-//     let oc = table['oc'];
-//     for (let i = 1; i <= 4; i++) {
-//         if (pc[i].length === 0) {
-//                 emptyPiles += ', #player-claimed li:nth-child(' + i + ').pile';
-//         }
-//         if (oc[i].length === 0) {
-//                 emptyPiles += ', #opponent-claimed li:nth-child(' + i + ').pile';
-//         }
-//     }
-//     return;
-//     // console.log(emptyPiles);
-//     //mark pile as empty
-//     elements = d.querySelectorAll(emptyPiles);
-//     // console.log(elements);
-//     for (let element in elements) {
-//         element = elements[element];
-//         if (element.nodeType) {
-//             element.dataset.empty = "true";
-//         }
-//     }
-//     return emptyPiles;
-// }
-
-// // flip cards
-// function flipCards(selectors, direction) {
-    // console.log("Flipping Cards...");
-// }
-
-// // move card
-// function move(source, dest, selectedCards = 1) {
-//     while (selectedCards) {
-//         // remove from the pile
-//         let card = source[source.length - selectedCards, 1];
-//         // push card to destination
-//         dest.push(card);
-//         // decrement
-//         selectedCards--;
-//     }
 // }
 
 
@@ -521,6 +398,18 @@ function createCard(card, selector, html, append) {
 // // select card
 // function select(event) {
 //     console.log("Card Selected");
+// }
+
+// // move card
+// function move(source, dest, selectedCards = 1) {
+//     while (selectedCards) {
+//         // remove from the pile
+//         let card = source[source.length - selectedCards, 1];
+//         // push card to destination
+//         dest.push(card);
+//         // decrement
+//         selectedCards--;
+//     }
 // }
 
 // // validate move
