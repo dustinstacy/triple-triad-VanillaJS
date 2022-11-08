@@ -4,3 +4,5 @@
 # ignore images
 /images
 
+# ignore console html
+/console.html

@@ -80,6 +80,7 @@ img {
     flex-direction: column;
     width: 8em;
     height: calc(8em * 1.4);
+    border-radius: 3%;
 }
 
 .opp-deck,
@@ -208,10 +209,13 @@ img {
 }
 
 .card[data-owner="player"] {
-
+    background: rgb(255, 255, 255);
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(10, 109, 245, 1) 100%);
 }
 
 .card[data-owner="opp"] {
+    background: rgb(255, 255, 255);
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 0, 0, 1) 100%);
 }
 
 .card[data-facedown="true"] {
