@@ -230,7 +230,7 @@ const opponentWasteElem = d.querySelector('opp-waste');
 
 // board containers
 const opponentClaimedElem = d.querySelector('opp-claimed');
-const mainElem = d.querySelector('.main');
+const cellElem = d.querySelectorAll('[data-cell]');
 const playerClaimedElem = d.querySelector('player.claimed');
 
 // player containers
@@ -239,7 +239,7 @@ const playerHandElem = d.querySelector('player-hand');
 const playerDeckElem = d.querySelector('player-deck');
 
 // card pile element
-const pileElem = d.querySelectorAll('.pile');
+const pileElem = d.querySelectorAll('.cell');
 
 //--------------Functions--------------//
 
@@ -257,7 +257,7 @@ deal(opponentDeck, opponentHand);
 renderTable(table);
 
 // 5. Start Game
-// play(table);
+play();
 
 //---------------Card & Pile Functions---------------//
 
@@ -354,73 +354,103 @@ function createCard(card, selector, html, append) {
 }
 
 // // flip cards
-function flipCards(selector) {
+function flipCards() {
   let cards = d.querySelectorAll('.card');
   let cardsArray = Array.prototype.slice.call(cards);
   for (let card in cardsArray) {
     card = cardsArray[card];
-    if (card.dataset.pile == '#ph') {
+    if (card.dataset.pile == '#ph' && isPlayerTurn) {
       card.dataset.facedown = 'false';
       card.dataset.owner = 'player';
+      card.addEventListener('click', select);
+    } else if (card.dataset.pile == '#oh' && !isPlayerTurn) {
+      card.dataset.facedown = 'false';
+      card.dataset.owner = 'opp';
+      card.addEventListener('click', select);
+    } else if (card.dataset.played == 'true') {
+      card.dataset.facedown = 'false';
     } else {
       card.dataset.facedown = 'true';
     }
   }
 }
 
-// // check for played cards
-// function checkForPlayedCards(playedCards) {
-//     // console.log("Checking For Showing Cards...");
-//     let elements = d.querySelectorAll('.card[data-player="true"]');
-// }
-
-
 //---------------Gameplay Functions---------------//
 
 // start game
-// function play(table) {
-    // console.log("Starting Game...");
-// }
+function play() {
+  bindClick('#ph .card');
+  if (isPlayerTurn == true) {
+    bindClick('#ph .card');
+  } else if (isPlayerTurn !== true) {
+    unbindClick('#ph .card');
+  }
+  checkForEmptyCells();
+}
 
-// // bind click events
-// function bindClick(selectors) {
-    // console.log("Binding Clicks...");
-// }
+// bind click events
+function bindClick(selectors) {
+  let elements = d.querySelectorAll(selectors);
+  for (let element in elements) {
+    element = elements[element];
+    if (element.nodeType) {
+      element.addEventListener('click', select);
+    }
+  }
+}
 
-// // unbind click events
-// function unbindClick(selectors) {
-    // console.log("Unbinding Clicks...");
-// }
-
-// // click variable
-// let clicks = 0;
+// unbind click events
+function unbindClick(selectors) {
+    let elements = d.querySelectorAll(selectors);
+  for (let element in elements) {
+    element = elements[element];
+    if (element.nodeType) {
+      element.removeEventListener('click', select);
+    }
+  }
+}
 
 // // select card
-// function select(event) {
-//     console.log("Card Selected");
-// }
+function select(event) {
+  // get variables
+  let element = event.target;
+  if (element.dataset.selected === 'true') {
+    element.dataset.selected = 'false';
+    bindClick('#ph .card')
+  } else {
+    element.dataset.selected = 'true';
+    unbindClick('.card[data-selected="false"]')
+  }
+}
 
 // // move card
-// function move(source, dest, selectedCards = 1) {
-//     while (selectedCards) {
-//         // remove from the pile
-//         let card = source[source.length - selectedCards, 1];
-//         // push card to destination
-//         dest.push(card);
-//         // decrement
-//         selectedCards--;
-//     }
-// }
+function placeCard(event) {
+  let source = d.querySelector('.card[data-selected="true"]');
+  let sourceHTML = d.querySelector('.card[data-selected="true"]').innerHTML;
+  let dest = event.target;
+  dest.innerHTML = sourceHTML;
+  dest.className = 'card';
+  dest.dataset.played = 'true';
+  dest.dataset.owner = source.dataset.owner;
+  source.remove();
+  if (isPlayerTurn) {
+    isPlayerTurn = false;
+  } else if (!isPlayerTurn) {
+    isPlayerTurn = true;
+  }
+  flipCards();
+  checkForEmptyCells();
+}
 
-// // validate move
-// function validateMove(selected, dest) {
-//     console.log("Validating Move...");
-// }
-
-// // make move
-// function makeMove() {
-//     console.log("Making Move...");
-// }
+function checkForEmptyCells() {
+  cellElem.forEach(cell => {
+    if (cell.dataset.played !== 'true') {
+      cell.addEventListener('click', placeCard)
+    } else if (cell.dataset.played == 'true') {
+      cell.removeEventListener('click', placeCard);
+    }
+  });
+}
 
 // // parse "A" as integer
 // function parseRankAsInt(rank) {
