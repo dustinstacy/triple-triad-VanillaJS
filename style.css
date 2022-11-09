@@ -10,24 +10,58 @@ body {
     margin: 0;
 }
 
+table {
+    margin: 0;
+}
+
 img {
     max-height: 100%;
     max-width: 100%;
+    pointer-events: none;
 }
 
 span {
     font-size: 1.1rem;
     font-family: "kolkerBrush";
+    pointer-events: none;
+        position: absolute;
+            right: 0;
+            top: 0;
+            margin-top: 6%;
+            margin-right: 12%;
+            color: rgb(237, 234, 234);
 }
 
-span {
-    z-index: 999;
+.player-hand,
+.opp-hand {
+    width: 42em;
+    height: 11.4em;
+    justify-content: center;
+    margin: 0;
+}
+
+.player-hand,
+.opp-hand {
+    margin-left: -2%;
+}
+
+li .card {
+    height: 100%;
+    width: 100%;
+}
+
+#ph .card[data-selected="true"] {
+    box-shadow: 0 0 10px 5px #FCDB1A;
+    transform: scale(2) translateY(-108.5%);
     position: absolute;
-    right: 0;
-    top: 0;
-    margin-top: 6%;
-    margin-right: 12%;
-    color: rgb(237, 234, 234);
+    margin-left: 38%;
+}
+
+#oh .card[data-selected="true"] {
+    box-shadow: 0 0 10px 5px #FCDB1A;
+    transform: scale(2) translateY(110%);
+    position: absolute;
+    margin-left: -36%;
 }
 
 .up {
@@ -51,7 +85,6 @@ span {
 
 div, .pile {
     border: 1px solid black;
-    padding: 1px;
 }
 
 .table {
@@ -104,6 +137,7 @@ div, .pile {
 .player-deck,
 .player-waste,
 .card,
+[data-cell],
 .pile,
 img {
     display: flex;
@@ -234,20 +268,20 @@ img {
 
 .card {
     border: 1px solid black;
-    display: block;
     margin: 1px;
-    z-index: -1;
     position: relative;
 }
 
-.card[data-owner="player"] {
+.card[data-owner="player"],
+div[data-owner="player"] {
     background: rgb(255, 255, 255);
     background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(10, 109, 245, 1) 100%);
     background-size: cover;
         background-repeat: no-repeat;
 }
 
-.card[data-owner="opp"] {
+.card[data-owner="opp"],
+div[data-owner="opp"] {
     background: rgb(255, 255, 255);
     background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 0, 0, 1) 100%);
     background-size: cover;
@@ -299,8 +333,5 @@ img {
     z-index: 5;
 }
 
-li.card:hover,
-#ph > *:hover {
-    transform: scale(125%);
-}
+
 
