@@ -2,7 +2,7 @@
 const Cards = [
   {
     "id": 01,
-    "name": 'Raven',
+    "name": 'Crimson Creeper',
     "image": './images/card1.png',
     "up": 1,
     "right": 4,
@@ -11,16 +11,16 @@ const Cards = [
   },
   {
     "id": 02,
-    "name": 'Crow',
+    "name": 'Azriel',
     "image": './images/card2.png',
     "up": 7,
-    "right": 9,
+    "right": 'A',
     "down": 8,
     "left": 3,
   },
   {
     "id": 03,
-    "name": 'Blackbird',
+    "name": 'Golem',
     "image": './images/card3.png',
     "up": 3,
     "right": 3,
@@ -29,7 +29,7 @@ const Cards = [
   },
   {
     "id": 04,
-    "name": 'Hawk',
+    "name": 'Octopetra',
     "image": './images/card4.png',
     "up": 5,
     "right": 1,
@@ -38,7 +38,7 @@ const Cards = [
   },
   {
     "id": 05,
-    "name": 'Pigeon',
+    "name": 'Ether Spirit',
     "image": './images/card5.png',
     "up": 2,
     "right": 3,
@@ -47,7 +47,7 @@ const Cards = [
   },
   {
     "id": 06,
-    "name": 'Peacock',
+    "name": 'Magicrap',
     "image": './images/card6.png',
     "up": 3,
     "right": 2,
@@ -56,7 +56,7 @@ const Cards = [
   },
   {
     "id": 07,
-    "name": 'Eagle',
+    "name": 'Arachnotaur',
     "image": './images/card7.png',
     "up": 2,
     "right": 2,
@@ -65,7 +65,7 @@ const Cards = [
   },
   {
     "id": 08,
-    "name": 'Falcon',
+    "name": 'Dire Werewolf',
     "image": './images/card8.png',
     "up": 5,
     "right": 7,
@@ -74,7 +74,7 @@ const Cards = [
   },
   {
     "id": 09,
-    "name": 'Pelican',
+    "name": 'Shadow Beast',
     "image": './images/card9.png',
     "up": 6,
     "right": 2,
@@ -83,7 +83,7 @@ const Cards = [
   },
   {
     "id": 10,
-    "name": 'Penguin',
+    "name": 'Terra Tortoise',
     "image": './images/card10.png',
     "up": 5,
     "right": 3,
@@ -92,7 +92,7 @@ const Cards = [
   },
   {
     "id": 11,
-    "name": 'Dragon',
+    "name": 'Blueclaw',
     "image": './images/card11.png',
     "up": 3,
     "right": 2,
@@ -101,7 +101,7 @@ const Cards = [
   },
   {
     "id": 12,
-    "name": 'Viper',
+    "name": 'Ent',
     "image": './images/card12.png',
     "up": 4,
     "right": 5,
@@ -110,7 +110,7 @@ const Cards = [
   },
   {
     "id": 13,
-    "name": 'Cobra',
+    "name": 'Blood Witch',
     "image": './images/card13.png',
     "up": 6,
     "right": 6,
@@ -119,7 +119,7 @@ const Cards = [
   },
   {
     "id": 14,
-    "name": 'Boa',
+    "name": 'Succubus',
     "image": './images/card14.png',
     "up": 8,
     "right": 5,
@@ -128,16 +128,16 @@ const Cards = [
   },
   {
     "id": 15,
-    "name": 'Garter',
+    "name": 'Diablos',
     "image": './images/card15.png',
     "up": 7,
-    "right": 9,
+    "right": 'A',
     "down": 5,
     "left": 7,
   },
   {
     "id": 16,
-    "name": 'Asp',
+    "name": 'Sentry Bot',
     "image": './images/card16.png',
     "up": 5,
     "right": 2,
@@ -146,16 +146,16 @@ const Cards = [
   },
   {
     "id": 17,
-    "name": 'Shovel-snout',
+    "name": 'Tiamat',
     "image": './images/card17.png',
-    "up": 9,
+    "up": 'A',
     "right": 4,
     "down": 8,
     "left": 8,
   },
   {
     "id": 18,
-    "name": 'Split-jaw',
+    "name": 'Golden Serpent',
     "image": './images/card18.png',
     "up": 4,
     "right": 8,
@@ -164,7 +164,7 @@ const Cards = [
   },
   {
     "id": 19,
-    "name": 'Mexican Burrowing',
+    "name": 'Lily',
     "image": './images/card19.png',
     "up": 3,
     "right": 5,
@@ -173,7 +173,7 @@ const Cards = [
   },
   {
     "id": 20,
-    "name": 'False Coral',
+    "name": 'False Druid',
     "image": './images/card20.png',
     "up": 1,
     "right": 8,
@@ -195,9 +195,9 @@ let playerHand = [];
 let opponentHand = [];
 
 // Board elements
-let mainBoard = []
-let opponentClaimedBoard = []
-let playerClaimedBoard = []
+let mainBoard = [];
+let opponentClaimedBoard = [];
+let playerClaimedBoard = [];
 
 // build table
 const table = [];
@@ -214,32 +214,13 @@ table['main'] = mainBoard;
 //---------------Variables---------------//
 
 // declare variables
-let d = document;
+const d = document;
+const handCount = 5;
+const deckSize = 20;
 let isPlayerTurn = true;
-let playedCards = true;
 
 //---------------Elements---------------//
-
-// table container
-const tableElem = d.querySelector('.table');
-
-// opponent containers
-const opponentDeckElem = d.querySelector('opp-deck');
-const opponentHandElem = d.querySelector('opp-hand');
-const opponentWasteElem = d.querySelector('opp-waste');
-
-// board containers
-const opponentClaimedElem = d.querySelector('opp-claimed');
 const cellElem = d.querySelectorAll('[data-cell]');
-const playerClaimedElem = d.querySelector('player.claimed');
-
-// player containers
-const playerWasteElem = d.querySelector('player-waste');
-const playerHandElem = d.querySelector('player-hand');
-const playerDeckElem = d.querySelector('player-deck');
-
-// card pile element
-const pileElem = d.querySelectorAll('.cell');
 
 //--------------Functions--------------//
 
@@ -261,48 +242,50 @@ play();
 
 //---------------Card & Pile Functions---------------//
 
-// create deck
-function createDecks(cards, playerDeck, opponentDeck) {
-    for (let card = 0; card < cards.length; card++) {
-        if (card % 2 == 0) {
-            playerDeck.push(cards[card]);
-        } else if (card % 2 !== 0) {
-            opponentDeck.push(cards[card]);
-        }
-    }
-}
-
 // shuffle cards
 function shuffleCards(cards) {
-    let i = cards.length, temp, rand;
-    while (i !== 0) {
-        rand = Math.floor(Math.random() * i);
-        i--;
-        temp = cards[i];
-        cards[i] = cards[rand];
-        cards[rand] = temp;
+  let i = cards.length, temp, rand;
+  while (i !== 0) {
+    rand = Math.floor(Math.random() * i);
+    i--;
+    temp = cards[i];
+    cards[i] = cards[rand];
+    cards[rand] = temp;
+  }
+  return cards;
+}
+
+// create decks
+function createDecks(cards, playerDeck, opponentDeck) {
+  for (let card = 0; card < deckSize; card++) {
+    // if even, move to player deck
+    if (card % 2 == 0) {
+      playerDeck.push(cards[card]);
+    // if odd, move to opponent deck
+    } else if (card % 2 !== 0) {
+        opponentDeck.push(cards[card]);
     }
-    return cards;
+  }
 }
 
 // deal decks
 function deal(source, dest) {
-    for (let card = 0; card < 5; card++) {
-        dest.push(source[card]);
-        source.shift();
-    }
+  for (let card = 0; card < handCount; card++) {
+    dest.push(source[card]);
+    source.shift();
+  }
 }
 
 // render table
 function renderTable(table) {
-    for (let pile in table) {
-        let selector = `#${pile}`
-        pile = table[`${pile}`];
-        for (let card in pile) {
-            card = pile[card];
-            let html = d.querySelector('.template').innerHTML;
-          createCard(card, selector, html);
-      }
+  for (let pile in table) {
+    let selector = `#${pile}`;
+    pile = table[`${pile}`];
+    for (let card in pile) {
+      card = pile[card];
+      let html = d.querySelector('.template').innerHTML;
+      createCard(card, selector, html);
+    }
   }
   flipCards();
   return table;
@@ -310,25 +293,28 @@ function renderTable(table) {
 
 // create card in pile
 function createCard(card, selector, html, append) {
-  // store object values in variables
+  // create empty container elements
   let element = d.createElement('li');
   let image = d.createElement('img');
   let up = d.createElement('span');
-  up.classList.add('up');
-  let down = d.createElement('span');
-  down.classList.add('down');
-  let right = d.createElement('span');
-  right.classList.add('right');
   let left = d.createElement('span');
-  left.classList.add('left');
+  let right = d.createElement('span');
+  let down = d.createElement('span');
   let name = card.name;
-  // set html values based on object values
+  // set inner HTML to blank template
+  element.innerHTML = html;
+  // add direction class to span elements
+  up.classList.add('up');
+  down.classList.add('down');
+  right.classList.add('right');
+  left.classList.add('left');
+  // set element values based on object values
   image.src = card.image;
   up.innerText = card.up;
+  left.innerText = card.left;
   right.innerText = card.right;
   down.innerText = card.down;
-  left.innerText = card.left;
-  // assign html data to new list element
+  // assign class & data to new list element
   element.className = 'card';
   element.dataset.pile = selector;
   element.dataset.name = name;
@@ -338,37 +324,41 @@ function createCard(card, selector, html, append) {
   element.dataset.down = down;
   element.dataset.left = left;
   element.dataset.selected = 'false';
-  element.innerHTML = html;
-  // get pile element
+  // get card location based on pile element
   let pile = d.querySelector(selector);
-  // add card to selector pile
+  // add card to pile location
   if (append) pile.appendChild(element);
   else pile.insertBefore(element, pile.firstChild);
+  // add filled container elements to card
   element.appendChild(image);
   element.appendChild(up);
   element.appendChild(left);
   element.appendChild(right);
   element.appendChild(down);
-  // setCardValues();
-  return;
 }
 
 // // flip cards
 function flipCards() {
+  // get node list of all cards on table
   let cards = d.querySelectorAll('.card');
+  // turn node list into an array
   let cardsArray = Array.prototype.slice.call(cards);
   for (let card in cardsArray) {
     card = cardsArray[card];
+    // cards in players hand & player's turn
     if (card.dataset.pile == '#ph' && isPlayerTurn) {
       card.dataset.facedown = 'false';
       card.dataset.owner = 'player';
       card.addEventListener('click', select);
+      // cards in opponents hand & opponents turn
     } else if (card.dataset.pile == '#oh' && !isPlayerTurn) {
       card.dataset.facedown = 'false';
       card.dataset.owner = 'opp';
       card.addEventListener('click', select);
+      // cards played to board
     } else if (card.dataset.played == 'true') {
       card.dataset.facedown = 'false';
+      // face down cards
     } else {
       card.dataset.facedown = 'true';
     }
@@ -379,12 +369,14 @@ function flipCards() {
 
 // start game
 function play() {
+  // make cards playable based on turn
   bindClick('#ph .card');
   if (isPlayerTurn == true) {
     bindClick('#ph .card');
   } else if (isPlayerTurn !== true) {
     unbindClick('#ph .card');
   }
+  // check for playable board cells
   checkForEmptyCells();
 }
 
@@ -412,12 +404,15 @@ function unbindClick(selectors) {
 
 // // select card
 function select(event) {
-  // get variables
+  // get card clicked
   let element = event.target;
+  // check if same card
   if (element.dataset.selected === 'true') {
+    // unselect card and return click to playable cards
     element.dataset.selected = 'false';
     bindClick('#ph .card')
   } else {
+    // select card and disable click to other playable cards
     element.dataset.selected = 'true';
     unbindClick('.card[data-selected="false"]')
   }
@@ -425,19 +420,20 @@ function select(event) {
 
 // // move card
 function placeCard(event) {
+  // get selected card and it's HTML data
   let source = d.querySelector('.card[data-selected="true"]');
   let sourceHTML = d.querySelector('.card[data-selected="true"]').innerHTML;
+  // get board cell clicked
   let dest = event.target;
+  // transfer card html to cell html
   dest.innerHTML = sourceHTML;
+  dest.dataset.owner = source.dataset.owner;
+  // add classes to played cell
   dest.className = 'card';
   dest.dataset.played = 'true';
-  dest.dataset.owner = source.dataset.owner;
+  // remove played card from hand
   source.remove();
-  if (isPlayerTurn) {
-    isPlayerTurn = false;
-  } else if (!isPlayerTurn) {
-    isPlayerTurn = true;
-  }
+  // switch turns after card is played
   flipCards();
   checkForEmptyCells();
 }
@@ -445,11 +441,20 @@ function placeCard(event) {
 function checkForEmptyCells() {
   cellElem.forEach(cell => {
     if (cell.dataset.played !== 'true') {
-      cell.addEventListener('click', placeCard)
+      cell.addEventListener('click', placeCard);
     } else if (cell.dataset.played == 'true') {
       cell.removeEventListener('click', placeCard);
     }
   });
+  switchTurns();
+}
+
+function switchTurns() {
+  if (isPlayerTurn) {
+    isPlayerTurn = false;
+  } else if (!isPlayerTurn) {
+    isPlayerTurn = true;
+  }
 }
 
 // // parse "A" as integer
