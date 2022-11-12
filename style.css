@@ -4,12 +4,14 @@
     src: url("./fonts/grunge.ttf")
 }
 
-/********** container elements **********/
+/********** layout elements **********/
 body {
     display: flex;
-    height: 100vh;
-    width: calc(100vw - 1px);
+    align-items: center;
+    justify-content: center;
     margin: 0;
+    height: 100vh;
+    width: 100vw;
     background-image: url('./images/canvas2.png');
     background-position: center;
     background-size: cover;
@@ -18,33 +20,22 @@ body {
 div .grid,
 div .red-bar,
 div .blue-bar {
-    display: none;
     background: rgb(70, 54, 29, 0.3);
     border: 3px solid black;
 }
 
-/************ layout elements ***********/
-.table {
-    display: flex;
-    justify-content: space-between;
-    height: calc(100vh -1px);
-    width: calc(100vw - 1px);
-}
-
-/* playing board elements*/
 .board {
     display: flex;
     align-items: center;
 }
-
 .grid {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     align-content: center;
     justify-content: center;
-    width: 40em;
-    height: calc(40em * 1.35);
+    width: 35vw;
+    height: calc(35vw * 1.35);
 }
 
 .cell {
@@ -55,16 +46,10 @@ div .blue-bar {
 .cell,
 .card[data-played="true"],
 .card[data-played="true"] img {
-    width: 12.5em;
-    height: calc(12.5em * 1.4);
+    width: 10.5vw;
+    height: calc(10.5vw * 1.4);
 }
 
-/* trim ul container overflow */
-ul {
-    padding: 0;
-}
-
-/********** blue & redonent elements *********/
 .red-bar,
 .blue-bar {
     display: flex;
@@ -73,11 +58,11 @@ ul {
 }
 
 .red-bar {
-    margin-left: 5%;
+    margin-left: 5vw;
 }
 
 .blue-bar {
-    margin-right: 5%;
+    margin-right: 5vw;
 }
 
 .blue-hand,
@@ -86,13 +71,107 @@ ul {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 10em;
-    height: 100%;
+    width: 8vw;
+    height: 90vh;
 }
 
 .blue-deck,
 .red-deck {
     display: none;
+}
+
+/* trim ul container overflow */
+ul {
+    padding: 0;
+}
+
+/****************Screen Elements******************/
+.start {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    width: 50vw;
+    border: 3px solid black;
+    border-radius: 6%;
+    background: rgb(70, 54, 29, 0.6);
+}
+
+.start img {
+    padding: 5vh;
+    width: 100%;
+    height: 100%;
+}
+
+button {
+    height: 8vh;
+    line-height: 9vh;
+    border: 3px solid black;
+    border-radius: 6%;
+    color: white;
+    font-size: 3vw;
+    font-family: 'grunge';
+    text-shadow: 3px 3px 3px black, -3px -3px 3px black;
+    background-color: rgb(70, 54, 29);
+}
+
+button:hover {
+    box-shadow: 0 0 10px 5px #FCDB1A;
+}
+
+
+.start button {
+    width: 10vw;
+    margin-top: -10%;
+}
+
+.table {
+    display: none;
+    justify-content: space-between;
+    height: calc(100vh -1px);
+    width: calc(100vw - 1px);
+}
+
+.game-over {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    width: 65vw;
+}
+
+.play-again {
+    width: 20vw;
+    transform: translateY(-30vh);
+}
+
+.blue-win,
+.red-win,
+.draw {
+    font-size: 15vw;
+    font-family: 'grunge';
+}
+
+.blue-win {
+    display: none;
+    color: rgba(10, 109, 245);
+    text-shadow: 3px 3px 3px black, -3px -3px 3px black;
+}
+
+.red-win {
+    display: none;
+    color: rgba(255, 0, 0);
+    text-shadow: 3px 3px 3px black, -3px -3px 3px black;
+}
+
+.draw {
+    display: none;
+    color: white;
+    text-shadow: 3px 3px 3px black, -3px -3px 3px black;
 }
 
 /*************** card elements ****************/
@@ -102,8 +181,8 @@ img {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 8em;
-    height: calc(8em * 1.4);
+    width: 6.5vw;
+    height: calc(6.5vw * 1.4);
     border-radius: 3%;
 }
 
@@ -165,7 +244,7 @@ div[data-owner="red"] {
 
 /* card value elements */
 span {
-    font-size: 1.1rem;
+    font-size: 0.925vw;
     font-family: "grunge";
     position: absolute;
     right: 0;
@@ -177,7 +256,7 @@ span {
 }
 
 .card[data-played="true"] span {
-    font-size: 1.75rem;
+    font-size: 1.5vw;
 }
 
 .up {
@@ -196,78 +275,4 @@ span {
 .down {
     margin-right: 1.5em;
     margin-top: 1.7em;
-}
-
-/****************Screen Elements******************/
-.start {
-    position: absolute;
-    z-index: 99;
-    align-self: center;
-    margin-left: 24vw;
-    height: 50vh;
-    width: 50vw;
-    border: 3px solid black;
-    border-radius: 6%;
-    background: rgb(70, 54, 29, 0.8);
-
-}
-
-.start button {
-    height: 1.2em;
-    line-height: 1.4em;
-    border: 3px solid black;
-    border-radius: 6%;
-    color: white;
-    font-size: 4em;
-    font-family: 'grunge';
-    text-shadow: 3px 3px 3px black, -3px -3px 3px black;
-    background-color: rgb(70, 54, 29, 0.9);
-}
-
-.start button {
-    margin-top: -3%;
-    margin-left: 41.75%;
-    width: 10vw;
-}
-
-.start button:hover,
-.game-over:hover {
-    box-shadow: 0 0 10px 5px #FCDB1A;
-}
-
-.start img {
-    width: 100%;
-    height: 100%;
-}
-
-.blue-win,
-.red-win,
-.draw {
-    position: absolute;
-    z-index: 999;
-    align-self: center;
-    margin-top: 18%;
-    font-size: 18em;
-    font-family: 'grunge';
-}
-
-.blue-win {
-    display: none;
-    margin-left: 20.25vw;
-    color: rgba(10, 109, 245);
-    text-shadow: 3px 3px 3px black, -3px -3px 3px black;
-}
-
-.red-win {
-    display: none;
-    margin-left: 22.5vw;
-    color: rgba(255, 0, 0);
-    text-shadow: 3px 3px 3px black, -3px -3px 3px black;
-}
-
-.draw {
-    display: none;
-    margin-left: 35.5vw;
-    color: white;
-    text-shadow: 3px 3px 3px black, -3px -3px 3px black;
 }

@@ -658,7 +658,8 @@ hands['rh'] = redHand;
 let isBlueTurn = true;
 
 //--------------Init Functions--------------//
-function newGame() {
+
+function startGame() {
   shuffleCards(Cards);
   createDecks(Cards, blueDeck, redDeck);
   deal(blueDeck, blueHand);
@@ -666,10 +667,9 @@ function newGame() {
   randomFirstTurn();
   renderHands(hands);
   initEventListeners();
-  d.querySelector('div .grid').style.display = "flex";
-  d.querySelector('div .blue-bar').style.display = "flex";
-  d.querySelector('div .red-bar').style.display = "flex";
+  d.querySelector('.table').style.display = "flex";
   d.querySelector('.start').style.display = "none";
+  d.querySelector('.game-over').style.display = "none";
 }
 
 function shuffleCards(cards) {
@@ -970,10 +970,41 @@ function checkForWin() {
     } else if (blueCards.length = redCards.length) {
       d.querySelector('.draw').style.display = "flex";
     }
+    d.querySelector('.game-over').style.display = "flex";
   }
 }
 
+function newGame() {
+  reset();
+  startGame();
+}
 
-// // new game
-// function newGame() {
-// }
+function reset() {
+  clearHandsAndDecks();
+  clearBoard();
+  d.querySelector('.blue-win').style.display = "none";
+  d.querySelector('.red-win').style.display = "none";
+  d.querySelector('.draw').style.display = "none";
+}
+
+function clearHandsAndDecks() {
+  let lastCard = d.querySelector('li.card');
+  lastCard.remove();
+  blueDeck = [];
+  redDeck = [];
+  blueHand = [];
+  redHand = [];
+  hands['bh'] = blueHand;
+  hands['rh'] = redHand;
+}
+
+function clearBoard() {
+  cellElem.forEach(cell => {
+    cell.innerHTML = '';
+    cell.removeAttribute('data-owner');
+    cell.removeAttribute('data-played');
+    cell.removeAttribute('data-facedown');
+    cell.classList.remove('card');
+    cell.classList.add('cell');
+  });
+}
