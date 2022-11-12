@@ -184,32 +184,18 @@ const Cards = [
 
 //---------------Arrays---------------//
 
-// decks & wastes
-let playerDeck = [];
-let opponentDeck = [];
-let playerWaste = [];
-let opponentWaste = [];
+// decks
+let blueDeck = [];
+let redDeck = [];
 
 // hands
-let playerHand = [];
-let opponentHand = [];
-
-// Board elements
-let mainBoard = [];
-let opponentClaimedBoard = [];
-let playerClaimedBoard = [];
+let blueHand = [];
+let redHand = [];
 
 // build table
-const table = [];
-table['pd'] = playerDeck;
-table['ph'] = playerHand;
-table['pw'] = playerWaste;
-table['pc'] = playerClaimedBoard;
-table['od'] = opponentDeck;
-table['oh'] = opponentHand;
-table['ow'] = opponentWaste;
-table['oc'] = opponentClaimedBoard;
-table['main'] = mainBoard;
+const hands = [];
+hands['bh'] = blueHand;
+hands['rh'] = redHand;
 
 //---------------Variables---------------//
 
@@ -217,7 +203,7 @@ table['main'] = mainBoard;
 const d = document;
 const handCount = 5;
 const deckSize = 20;
-let isPlayerTurn = true;
+let isBlueTurn = true;
 
 //---------------Elements---------------//
 const cellElem = d.querySelectorAll('[data-cell]');
@@ -227,20 +213,23 @@ const cellElem = d.querySelectorAll('[data-cell]');
 // 1. Shuffle all cards in database
 shuffleCards(Cards);
 
-// 2. Distribute to players decks
-createDecks(Cards, playerDeck, opponentDeck);
+// 2. Distribute to decks
+createDecks(Cards, blueDeck, redDeck);
 
 // 3. Deal Deck
-deal(playerDeck, playerHand);
-deal(opponentDeck, opponentHand);
+deal(blueDeck, blueHand);
+deal(redDeck, redHand);
 
-// // 4. Render Table
-renderTable(table);
+// 4. Random First Turn
+randomFirstTurn();
 
-// 5. Start Game
+// 5. Render hands
+renderHands(hands);
+
+// 6. Start Game
 play();
 
-//---------------Card & Pile Functions---------------//
+//---------------Card & hand Functions---------------//
 
 // shuffle cards
 function shuffleCards(cards) {
@@ -256,14 +245,14 @@ function shuffleCards(cards) {
 }
 
 // create decks
-function createDecks(cards, playerDeck, opponentDeck) {
+function createDecks(cards, blueDeck, redDeck) {
   for (let card = 0; card < deckSize; card++) {
-    // if even, move to player deck
+    // if even, move to blue deck
     if (card % 2 == 0) {
-      playerDeck.push(cards[card]);
-    // if odd, move to opponent deck
+      blueDeck.push(cards[card]);
+    // if odd, move to red deck
     } else if (card % 2 !== 0) {
-        opponentDeck.push(cards[card]);
+        redDeck.push(cards[card]);
     }
   }
 }
@@ -276,22 +265,34 @@ function deal(source, dest) {
   }
 }
 
-// render table
-function renderTable(table) {
-  for (let pile in table) {
-    let selector = `#${pile}`;
-    pile = table[`${pile}`];
-    for (let card in pile) {
-      card = pile[card];
+// randomize first turn
+function randomFirstTurn() {
+  if (Math.random() < 0.5) {
+    isBlueTurn = true;
+  } else {
+    isBlueTurn = false;
+  }
+}
+
+// render hands
+function renderHands(hands) {
+  for (let hand in hands) {
+    // set hand selector to id attribute
+    let selector = `#${hand}`;
+    // set hand variable to index of hands
+    hand = hands[`${hand}`];
+    for (let card in hand) {
+      card = hand[card];
       let html = d.querySelector('.template').innerHTML;
       createCard(card, selector, html);
     }
   }
+  // show current blue cards
   flipCards();
-  return table;
+  return hands;
 }
 
-// create card in pile
+// create card in hand
 function createCard(card, selector, html, append) {
   // create empty container elements
   let element = d.createElement('li');
@@ -316,7 +317,7 @@ function createCard(card, selector, html, append) {
   down.innerText = card.down;
   // assign class & data to new list element
   element.className = 'card';
-  element.dataset.pile = selector;
+  element.dataset.hand = selector;
   element.dataset.name = name;
   element.dataset.image = image;
   element.dataset.up = up;
@@ -324,11 +325,11 @@ function createCard(card, selector, html, append) {
   element.dataset.down = down;
   element.dataset.left = left;
   element.dataset.selected = 'false';
-  // get card location based on pile element
-  let pile = d.querySelector(selector);
-  // add card to pile location
-  if (append) pile.appendChild(element);
-  else pile.insertBefore(element, pile.firstChild);
+  // get card location based on hand element
+  let hand = d.querySelector(selector);
+  // add card to hand location
+  if (append) hand.appendChild(element);
+  else hand.insertBefore(element, hand.firstChild);
   // add filled container elements to card
   element.appendChild(image);
   element.appendChild(up);
@@ -339,21 +340,21 @@ function createCard(card, selector, html, append) {
 
 // // flip cards
 function flipCards() {
-  // get node list of all cards on table
+  // get node list of all cards on hands
   let cards = d.querySelectorAll('.card');
   // turn node list into an array
   let cardsArray = Array.prototype.slice.call(cards);
   for (let card in cardsArray) {
     card = cardsArray[card];
-    // cards in players hand & player's turn
-    if (card.dataset.pile == '#ph' && isPlayerTurn) {
+    // cards in blue hand & blue's turn
+    if (card.dataset.hand == '#bh' && isBlueTurn) {
       card.dataset.facedown = 'false';
-      card.dataset.owner = 'player';
+      card.dataset.owner = 'blue';
       card.addEventListener('click', select);
-      // cards in opponents hand & opponents turn
-    } else if (card.dataset.pile == '#oh' && !isPlayerTurn) {
+      // cards in reds hand & reds turn
+    } else if (card.dataset.hand == '#rh' && !isBlueTurn) {
       card.dataset.facedown = 'false';
-      card.dataset.owner = 'opp';
+      card.dataset.owner = 'red';
       card.addEventListener('click', select);
       // cards played to board
     } else if (card.dataset.played == 'true') {
@@ -367,20 +368,19 @@ function flipCards() {
 
 //---------------Gameplay Functions---------------//
 
-// start game
 function play() {
   // make cards playable based on turn
-  bindClick('#ph .card');
-  if (isPlayerTurn == true) {
-    bindClick('#ph .card');
-  } else if (isPlayerTurn !== true) {
-    unbindClick('#ph .card');
+  if (isBlueTurn == true) {
+    bindClick('#bh .card');
+    unbindClick('#rh .card');
+  } else if (isBlueTurn !== true) {
+    bindClick('#rh .card');
+    unbindClick('#bh .card');
   }
   // check for playable board cells
   checkForEmptyCells();
 }
 
-// bind click events
 function bindClick(selectors) {
   let elements = d.querySelectorAll(selectors);
   for (let element in elements) {
@@ -391,7 +391,6 @@ function bindClick(selectors) {
   }
 }
 
-// unbind click events
 function unbindClick(selectors) {
     let elements = d.querySelectorAll(selectors);
   for (let element in elements) {
@@ -402,7 +401,18 @@ function unbindClick(selectors) {
   }
 }
 
-// // select card
+function checkForEmptyCells() {
+  cellElem.forEach(cell => {
+    if (cell.dataset.played !== 'true') {
+      cell.addEventListener('click', placeCard);
+    } else if (cell.dataset.played == 'true') {
+      cell.removeEventListener('click', placeCard);
+    }
+  });
+  switchTurns();
+}
+
+// select card
 function select(event) {
   // get card clicked
   let element = event.target;
@@ -410,7 +420,13 @@ function select(event) {
   if (element.dataset.selected === 'true') {
     // unselect card and return click to playable cards
     element.dataset.selected = 'false';
-    bindClick('#ph .card')
+      if (isBlueTurn == true) {
+        bindClick('#rh .card');
+        unbindClick('#bh .card');
+      } else if (isBlueTurn !== true) {
+        bindClick('#bh .card');
+        unbindClick('#rh .card');
+  }
   } else {
     // select card and disable click to other playable cards
     element.dataset.selected = 'true';
@@ -418,7 +434,7 @@ function select(event) {
   }
 }
 
-// // move card
+// place card
 function placeCard(event) {
   // get selected card and it's HTML data
   let source = d.querySelector('.card[data-selected="true"]');
@@ -434,60 +450,108 @@ function placeCard(event) {
   // remove played card from hand
   source.remove();
   // switch turns after card is played
+  evaluateBattles(dest);
   flipCards();
   checkForEmptyCells();
 }
 
-function checkForEmptyCells() {
-  cellElem.forEach(cell => {
-    if (cell.dataset.played !== 'true') {
-      cell.addEventListener('click', placeCard);
-    } else if (cell.dataset.played == 'true') {
-      cell.removeEventListener('click', placeCard);
-    }
-  });
-  switchTurns();
-}
-
 function switchTurns() {
-  if (isPlayerTurn) {
-    isPlayerTurn = false;
-  } else if (!isPlayerTurn) {
-    isPlayerTurn = true;
+  if (isBlueTurn) {
+    isBlueTurn = false;
+  } else if (!isBlueTurn) {
+    isBlueTurn = true;
   }
 }
 
-// // parse "A" as integer
-// function parseRankAsInt(rank) {
-//     console.log("Parsing Rank...");
-// }
-
 // // evaluate competiting values
-// function evaluateValues(selected, dest, playedCards) {
-//     console.log("Evaluating Values...");
+function evaluateBattles(dest) {
+  // turn cell id number of target cell into integer
+  let destCell = parseInt(dest.dataset.cell);
+  // store starting ownership for repeat use in evaluations
+  let owner = dest.dataset.owner;
+  // turn all grid cells into an array for location purposes
+  let cellArray = Array.prototype.slice.call(cellElem);
+  // map placed cards html to grid location
+  let placedCard = [...dest.children].map(cont => cont.innerHTML);
+  // remove img from array
+  placedCard.shift();
+  // loop through cells in grid
+  for (let cell in cellArray) {
+    cell = cellArray[cell];
+    // set value directions to variable based on destination cell for placed card
+    // use destination cell with cellArray to determine competing cards location
+    // !== '' checks for empty space to skip evaluation
+    // cellArray index is adjusted by -1 in comparision to value directions since cellArray begins at 0, not 1;
+    let up = (destCell - 3);
+    let left = (destCell - 1);
+    let right = (destCell + 1);
+    let down = (destCell + 3);
+    if (cell.dataset.cell == up && cell.innerText !== '') {
+      let upCardValues = [...cellArray[(destCell - 4)].innerText].filter(item => item !== '\n');
+      console.log('up battle', placedCard[0], 'vs.', upCardValues[3]);
+      if (placedCard[0] > upCardValues[3]) {
+        console.log('you win');
+        cell.dataset.owner = owner ;
+      } else if (placedCard[0] == upCardValues[3]) {
+        console.log('draw');
+      } else if (placedCard[0] < upCardValues[3]) {
+        console.log('you lose');
+        dest.dataset.owner  = cell.dataset.owner;
+      }
+    }
+    if (cell.dataset.cell == left && cell.innerText !== '' && destCell !== 1 && destCell !== 4 && destCell !== 7) {
+      let leftCardValues = [...cellArray[(destCell - 2)].innerText].filter(item => item !== '\n');
+      console.log('left battle', placedCard[1], 'vs.', leftCardValues[2]);
+      if (placedCard[1] > leftCardValues[2]) {
+        console.log('you win');
+        cell.dataset.owner = owner ;
+      } else if (placedCard[1] == leftCardValues[2]) {
+        console.log('draw');
+      } else if (placedCard[1] < leftCardValues[2]) {
+        console.log('you lose');
+        dest.dataset.owner  = cell.dataset.owner;
+        console.log(owner)
+      }
+    }
+    if (cell.dataset.cell == right && cell.innerText !== '' && destCell !== 3 && destCell !== 6 && destCell !== 9) {
+      let rightCardValues = [...cellArray[destCell].innerText].filter(item => item !== '\n');
+      console.log('right battle', placedCard[2], 'vs.', rightCardValues[1]);
+      if (placedCard[2] > rightCardValues[1]) {
+        console.log('you win');
+        cell.dataset.owner = owner ;
+      } else if (placedCard[2] == rightCardValues[1]) {
+        console.log('draw');
+      } else if (placedCard[2] < rightCardValues[1]) {
+        console.log('you lose');
+        dest.dataset.owner  = cell.dataset.owner;
+        console.log(owner)
+      }
+    }
+    if (cell.dataset.cell == down && cell.innerText !== '') {
+      let downCardValues = [...cellArray[(destCell + 2)].innerText].filter(item => item !== '\n');
+      console.log('down battle', placedCard[3], 'vs.', downCardValues[0]);
+      if (placedCard[3] > downCardValues[0]) {
+        console.log('you win');
+        cell.dataset.owner = owner;
+      } else if (placedCard[3] == downCardValues[0]) {
+        console.log('draw');
+      } else if (placedCard[3] < downCardValues[0]) {
+        console.log('you lose');
+        dest.dataset.owner  = cell.dataset.owner;
+      }
+    }
+  }
+}
+
+// // check for game winner
+// function checkForWin() {
 // }
 
-// // check for winner
-// function checkForWin(table) {
-//     console.log("Checking For Winner...");
+
+// start game
+// function startGame() {
 // }
 
-// // winner card select
-// function winnerCardSelect(event) {
-//     console.log("Winner Card Selected");
-// }
-
-// // reset table per round
-// function resetTableRound(table) {
-//     console.log("Resetting For Next Round...");
-// }
-
-// // randomize winner keeper card
-// function randomKeeper(table) {
-//     console.log("Randomizing Keeper...");
-// }
-
-// // reset table per game
-// function resetTableGame(table) {
-//     console.log("Resetting For Next Game...");
+// // new game
+// function newGame() {
 // }
