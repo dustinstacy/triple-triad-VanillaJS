@@ -197,7 +197,36 @@ span {
     margin-top: 1.7em;
 }
 
+/****************Screen Elements******************/
+.blue-win,
+.red-win,
+.draw {
+    position: absolute;
+    z-index: 999;
+    font-size: 18em;
+    font-family: 'grunge';
+    align-self: center;
+}
 
+.blue-win {
+    display: none;
+    margin-left: 20.25vw;
+    color: rgba(10, 109, 245);
+    text-shadow: 3px 3px 3px black, -3px -3px 3px black;
+}
 
+.red-win {
+    display: none;
+    margin-left: 22.5vw;
+    color: rgba(255, 0, 0);
+    text-shadow: 3px 3px 3px black, -3px -3px 3px black;
+}
+
+.draw {
+    display: none;
+    margin-left: 35.5vw;
+    color: white;
+    text-shadow: 3px 3px 3px black, -3px -3px 3px black;
+}
 
 

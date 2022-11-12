@@ -360,17 +360,21 @@ function unbindClick(selectors) {
 function endTurn() {
   checkForEmptyCells();
   switchTurns();
-    flipCards();
+  flipCards();
+  checkForWin();
 }
 
 function checkForEmptyCells() {
+  cellsPlayed = 0;
   cellElem.forEach(cell => {
     if (cell.dataset.played !== 'true') {
       cell.addEventListener('click', placeCard);
     } else if (cell.dataset.played == 'true') {
       cell.removeEventListener('click', placeCard);
+      cellsPlayed++;
     }
   });
+  return cellsPlayed;
 }
 
 function switchTurns() {
@@ -479,7 +483,6 @@ function processBattles(dest) {
     }
     if (touchingCell == left && text !== '' && destCell !== 3 && destCell !== 6) {
       let leftCardValues = [...cellArray[left].innerText].filter(item => item !== '\n');
-      console.log('left battle', placedCard[1], 'vs.', leftCardValues[2]);
       if (placedCard[1] > leftCardValues[2]) {
         cell.dataset.owner = owner ;
       } else if (placedCard[1] < leftCardValues[2]) {
@@ -488,7 +491,6 @@ function processBattles(dest) {
     }
     if (touchingCell == right && text !== '' && destCell !== 2 && destCell !== 5) {
       let rightCardValues = [...cellArray[right].innerText].filter(item => item !== '\n');
-      console.log('right battle', placedCard[2], 'vs.', rightCardValues[1]);
       if (placedCard[2] > rightCardValues[1]) {
         cell.dataset.owner = owner ;
       } else if (placedCard[2] < rightCardValues[1]) {
@@ -497,7 +499,6 @@ function processBattles(dest) {
     }
     if (touchingCell == down && text !== '') {
       let downCardValues = [...cellArray[down].innerText].filter(item => item !== '\n');
-      console.log('down battle', placedCard[3], 'vs.', downCardValues[0]);
       if (placedCard[3] > downCardValues[0]) {
         cell.dataset.owner = owner;
       } else if (placedCard[3] < downCardValues[0]) {
@@ -508,8 +509,20 @@ function processBattles(dest) {
 }
 
 // // check for game winner
-// function checkForWin() {
-// }
+function checkForWin() {
+  let blueCards = d.querySelectorAll('[data-owner="blue"]');
+  let redCards = d.querySelectorAll('[data-owner="red"]');
+  if (cellsPlayed == 9) {
+    if (blueCards.length > redCards.length) {
+      d.querySelector('.blue-win').style.display = "flex";
+    } else if (blueCards.length < redCards.length) {
+      d.querySelector('.red-win').style.display = "flex";
+    } else if (blueCards.length = redCards.length) {
+      d.querySelector('.draw').style.display = "flex";
+    }
+  }
+}
+
 
 
 // start game
