@@ -1,11 +1,5 @@
 # ignore test files
 /test.*
 
-# ignore images
-/images
-
-# ignore console html
+# ignore console log html
 /console.html
-
-# ignore fonts
-/fonts
