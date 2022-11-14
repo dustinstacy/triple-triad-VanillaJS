@@ -159,19 +159,19 @@ button:hover {
 .blue-win {
     display: none;
     color: rgba(10, 109, 245);
-    text-shadow: 3px 3px 3px black, -3px -3px 3px black;
+    text-shadow: 6px 6px 6px black, -6px -6px 6px black;
 }
 
 .red-win {
     display: none;
     color: rgba(255, 0, 0);
-    text-shadow: 3px 3px 3px black, -3px -3px 3px black;
+    text-shadow: 6px 6px 6px black, -6px -6px 6px black;
 }
 
 .draw {
     display: none;
     color: white;
-    text-shadow: 3px 3px 3px black, -3px -3px 3px black;
+    text-shadow: 6px 6px 6px black, -6px -6px 6px black;
 }
 
 /*************** card elements ****************/

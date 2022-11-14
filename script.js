@@ -902,57 +902,47 @@ function placeCard(event) {
 function processBattles(dest) {
   // turn cell id number of target cell into integer
   let destCell = parseInt(dest.dataset.cell);
-  // store starting ownership for repeat use in evaluations
-  let owner = dest.dataset.owner;
-  // turn all grid cells into an array for location purposes
-  let cellArray = Array.prototype.slice.call(cellElem);
   // map placed cards html to grid location
   let placedCard = [...dest.children].map(cont => cont.innerHTML);
   // remove img container from array
   placedCard.shift();
+  // store starting ownership for repeat use in evaluations
+  let owner = dest.dataset.owner;
   // set direction to a variable based on destination cell of placed card
   let up = (destCell - 3);
   let left = (destCell - 1);
   let right = (destCell + 1);
   let down = (destCell + 3);
-  // loop through cells in grid
+  // turn all grid cells into an array for location purposes
+  let cellArray = Array.prototype.slice.call(cellElem);
   for (let cell in cellArray) {
     cell = cellArray[cell];
     // touching cell variables. reassigned after each loop.
     let touchingCell = cell.dataset.cell;
     let text = cell.innerText;
-    let touchingOwner = cell.dataset.owner;
     // check touching cells direction and if it is empty.
     if (touchingCell == up && text !== '') {
       let upCardValues = [...cellArray[up].innerText].filter(item => item !== '\n');
       if (placedCard[0] > upCardValues[3]) {
         cell.dataset.owner = owner ;
-      } else if (placedCard[0] < upCardValues[3]) {
-        dest.dataset.owner  = touchingOwner;
       }
     }
     if (touchingCell == left && text !== '' && destCell !== 3 && destCell !== 6) {
       let leftCardValues = [...cellArray[left].innerText].filter(item => item !== '\n');
       if (placedCard[1] > leftCardValues[2]) {
         cell.dataset.owner = owner ;
-      } else if (placedCard[1] < leftCardValues[2]) {
-        dest.dataset.owner  = touchingOwner;
       }
     }
     if (touchingCell == right && text !== '' && destCell !== 2 && destCell !== 5) {
       let rightCardValues = [...cellArray[right].innerText].filter(item => item !== '\n');
       if (placedCard[2] > rightCardValues[1]) {
         cell.dataset.owner = owner ;
-      } else if (placedCard[2] < rightCardValues[1]) {
-        dest.dataset.owner  = touchingOwner;
       }
     }
     if (touchingCell == down && text !== '') {
       let downCardValues = [...cellArray[down].innerText].filter(item => item !== '\n');
       if (placedCard[3] > downCardValues[0]) {
         cell.dataset.owner = owner;
-      } else if (placedCard[3] < downCardValues[0]) {
-        dest.dataset.owner  = touchingOwner;
       }
     }
   }
