@@ -4,24 +4,30 @@ ___
 ### This is a reimagining of one of my favorite games within a game, Triple Triad, from Final Fantasy VIII.
 ___
 
-It has the basic setup and ruleset of the original game minus some extra features such as elements.
+It has the basic setup and ruleset of the original game minus some extra features such as elements and ruleset variations.
 
-This project was created with the intention of using only HTML, CSS, and Vanilla JS. With that, if you'd like to give it a whirl, go ahead and clone the repo to your local machine and copy and paste the index.html file into your browser's address bar and hit enter. 
+This project was created with the intention of using only HTML, CSS, and Vanilla JS. With that, if you'd like to give it a whirl, check out the GitHub Pages link over on the right side of the repo's main screen. 
+
+If you'd rather run it locally: 
+1. Clone the repository to your local machine.
+2. Copy and paste the index.html into your browser's address bar.
+3. Hit enter.
 
 In it's current state it only supports a single player playing both sides, but creates the framework with which we will continue to grow this project! A second version using the React JS library will begin development soon! 
 
 <ins>Possible features for the React version include:</ins>
-* Builadble Decks
-* Elemental Attributes
 * Rule Variations
-* Online Multiplayer
+* Elemental Attributes
+* Buildable Decks
 * Winner Keeper Cards
-* Enhcanced Graphics & Animations
-* Mobile Friendly Responsive Layout
+* Enhanced Graphics & Animations
 * Multi Round Games
+* Opponent AI
+* Online Multiplayer
 * Card Packs/Opening
+* Mobile Responsive Layout
 
-I'll keep a running list here and I am open to any ideas as I would love to try and figure out how to incorporate them! Keep in mind this is more of a spitball list and some features may not ultimately make it. The goal is to have a fun learning experience and resource for whomever finds it useful/entertaining!
+I'll keep a running list here and I am open to any ideas as I would love to try and figure out how to incorporate them! Keep in mind this is more of a spitball list and some features may not ultimately make it. The goal is to have a fun learning experience and provide the resource for whomever finds it useful/entertaining!
 
 
 
