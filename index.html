@@ -8,12 +8,12 @@
 </head>
 
 <body>
-    <div class="table">
+    <div class="start">
+        <img src="./images/triadlogo.png" alt="">
+        <button onclick="startGame()" type="button">Start</button>
+    </div>
 
-        <div class="start">
-            <img src="./images/triadlogo.png" alt="">
-            <button onclick="newGame()" type="button">Start</button>
-        </div>
+    <div class="table">
 
         <div class="red-bar">
             <div id="rd" class="red-deck">
@@ -57,17 +57,23 @@
     <ul class="template">
     </ul>
 
-    <ul class="blue-win">
-        Blue Wins!
-    </ul>
+    <div class="game-over">
 
-    <ul class="red-win">
-        Red Wins!
-    </ul>
+        <ul class="blue-win">
+            Blue Wins!
+        </ul>
 
-    <ul class="draw">
-        Draw
-    </ul>
+        <ul class="red-win">
+            Red Wins!
+        </ul>
+
+        <ul class="draw">
+            Draw
+        </ul>
+
+        <button class="play-again" onclick="newGame()" type="button">Play Again?</button>
+
+    </div>
 
     <script src="script.js"></script>
 </body>
