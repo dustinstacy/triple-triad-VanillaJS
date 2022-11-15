@@ -18,6 +18,7 @@ body {
 div .grid,
 div .red-bar,
 div .blue-bar {
+    display: none;
     background: rgb(70, 54, 29, 0.3);
     border: 3px solid black;
 }
@@ -107,9 +108,9 @@ img {
 }
 
 .card {
-    border: 1px solid black;
     margin: 1px;
     position: relative;
+    border: 1px solid black;
 }
 
 img {
@@ -148,7 +149,7 @@ div[data-owner="red"] {
 
 /* face down card elements */
 .card[data-facedown="true"] {
-    background-image: url("./images/back.png");
+    background-image: url("./images/cardback2.png");
     background-size: cover;
 }
 
@@ -198,14 +199,56 @@ span {
 }
 
 /****************Screen Elements******************/
+.start {
+    position: absolute;
+    z-index: 99;
+    align-self: center;
+    margin-left: 24vw;
+    height: 50vh;
+    width: 50vw;
+    border: 3px solid black;
+    border-radius: 6%;
+    background: rgb(70, 54, 29, 0.8);
+
+}
+
+.start button {
+    height: 1.2em;
+    line-height: 1.4em;
+    border: 3px solid black;
+    border-radius: 6%;
+    color: white;
+    font-size: 4em;
+    font-family: 'grunge';
+    text-shadow: 3px 3px 3px black, -3px -3px 3px black;
+    background-color: rgb(70, 54, 29, 0.9);
+}
+
+.start button {
+    margin-top: -3%;
+    margin-left: 41.75%;
+    width: 10vw;
+}
+
+.start button:hover,
+.game-over:hover {
+    box-shadow: 0 0 10px 5px #FCDB1A;
+}
+
+.start img {
+    width: 100%;
+    height: 100%;
+}
+
 .blue-win,
 .red-win,
 .draw {
     position: absolute;
     z-index: 999;
+    align-self: center;
+    margin-top: 18%;
     font-size: 18em;
     font-family: 'grunge';
-    align-self: center;
 }
 
 .blue-win {
@@ -228,5 +271,3 @@ span {
     color: white;
     text-shadow: 3px 3px 3px black, -3px -3px 3px black;
 }
-
-
