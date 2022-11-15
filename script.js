@@ -1,4 +1,11 @@
+//--------------- Constants ------------//
+
+const HAND_COUNT = 5;
+const DECK_SIZE = 20;
+const d = document;
+
 //---------------Cards---------------//
+
 const Cards = [
   {
     "id": 01,
@@ -182,56 +189,39 @@ const Cards = [
   },
 ];
 
+//---------------Elements---------------//
+
+const cellElem = d.querySelectorAll('[data-cell]');
+
 //---------------Arrays---------------//
 
-// decks
 let blueDeck = [];
 let redDeck = [];
-
-// hands
 let blueHand = [];
 let redHand = [];
 
-// build table
 const hands = [];
 hands['bh'] = blueHand;
 hands['rh'] = redHand;
 
 //---------------Variables---------------//
 
-// declare variables
-const d = document;
-const handCount = 5;
-const deckSize = 20;
 let isBlueTurn = true;
 
-//---------------Elements---------------//
-const cellElem = d.querySelectorAll('[data-cell]');
+//--------------Init Functions--------------//
 
-//--------------Functions--------------//
+startGame();
 
-// 1. Shuffle all cards in database
-shuffleCards(Cards);
+function startGame() {
+  shuffleCards(Cards);
+  createDecks(Cards, blueDeck, redDeck);
+  deal(blueDeck, blueHand);
+  deal(redDeck, redHand);
+  randomFirstTurn();
+  renderHands(hands);
+  initEventListeners();
+}
 
-// 2. Distribute to decks
-createDecks(Cards, blueDeck, redDeck);
-
-// 3. Deal Deck
-deal(blueDeck, blueHand);
-deal(redDeck, redHand);
-
-// 4. Random First Turn
-randomFirstTurn();
-
-// 5. Render hands
-renderHands(hands);
-
-// 6. Start Game
-play();
-
-//---------------Card & hand Functions---------------//
-
-// shuffle cards
 function shuffleCards(cards) {
   let i = cards.length, temp, rand;
   while (i !== 0) {
@@ -244,9 +234,8 @@ function shuffleCards(cards) {
   return cards;
 }
 
-// create decks
 function createDecks(cards, blueDeck, redDeck) {
-  for (let card = 0; card < deckSize; card++) {
+  for (let card = 0; card < DECK_SIZE; card++) {
     // if even, move to blue deck
     if (card % 2 == 0) {
       blueDeck.push(cards[card]);
@@ -257,15 +246,13 @@ function createDecks(cards, blueDeck, redDeck) {
   }
 }
 
-// deal decks
 function deal(source, dest) {
-  for (let card = 0; card < handCount; card++) {
+  for (let card = 0; card < HAND_COUNT; card++) {
     dest.push(source[card]);
     source.shift();
   }
 }
 
-// randomize first turn
 function randomFirstTurn() {
   if (Math.random() < 0.5) {
     isBlueTurn = true;
@@ -274,13 +261,12 @@ function randomFirstTurn() {
   }
 }
 
-// render hands
 function renderHands(hands) {
   for (let hand in hands) {
     // set hand selector to id attribute
     let selector = `#${hand}`;
     // set hand variable to index of hands
-    hand = hands[`${hand}`];
+    hand = hands[hand];
     for (let card in hand) {
       card = hand[card];
       let html = d.querySelector('.template').innerHTML;
@@ -292,7 +278,6 @@ function renderHands(hands) {
   return hands;
 }
 
-// create card in hand
 function createCard(card, selector, html, append) {
   // create empty container elements
   let element = d.createElement('li');
@@ -338,38 +323,7 @@ function createCard(card, selector, html, append) {
   element.appendChild(down);
 }
 
-// // flip cards
-function flipCards() {
-  // get node list of all cards on hands
-  let cards = d.querySelectorAll('.card');
-  // turn node list into an array
-  let cardsArray = Array.prototype.slice.call(cards);
-  for (let card in cardsArray) {
-    card = cardsArray[card];
-    // cards in blue hand & blue's turn
-    if (card.dataset.hand == '#bh' && isBlueTurn) {
-      card.dataset.facedown = 'false';
-      card.dataset.owner = 'blue';
-      card.addEventListener('click', select);
-      // cards in reds hand & reds turn
-    } else if (card.dataset.hand == '#rh' && !isBlueTurn) {
-      card.dataset.facedown = 'false';
-      card.dataset.owner = 'red';
-      card.addEventListener('click', select);
-      // cards played to board
-    } else if (card.dataset.played == 'true') {
-      card.dataset.facedown = 'false';
-      // face down cards
-    } else {
-      card.dataset.facedown = 'true';
-    }
-  }
-}
-
-//---------------Gameplay Functions---------------//
-
-function play() {
-  // make cards playable based on turn
+function initEventListeners() {
   if (isBlueTurn == true) {
     bindClick('#bh .card');
     unbindClick('#rh .card');
@@ -377,9 +331,11 @@ function play() {
     bindClick('#rh .card');
     unbindClick('#bh .card');
   }
-  // check for playable board cells
+  // init board event listeners
   checkForEmptyCells();
 }
+
+//--------------Update Functions----------------//
 
 function bindClick(selectors) {
   let elements = d.querySelectorAll(selectors);
@@ -401,18 +357,59 @@ function unbindClick(selectors) {
   }
 }
 
+function endTurn() {
+  checkForEmptyCells();
+  switchTurns();
+  flipCards();
+  checkForWin();
+}
+
 function checkForEmptyCells() {
+  cellsPlayed = 0;
   cellElem.forEach(cell => {
     if (cell.dataset.played !== 'true') {
       cell.addEventListener('click', placeCard);
     } else if (cell.dataset.played == 'true') {
       cell.removeEventListener('click', placeCard);
+      cellsPlayed++;
     }
   });
-  switchTurns();
+  return cellsPlayed;
 }
 
-// select card
+function switchTurns() {
+  if (isBlueTurn) {
+    isBlueTurn = !isBlueTurn;
+  } else if (!isBlueTurn) {
+    isBlueTurn = true;
+  }
+}
+
+function flipCards() {
+  // get node list of all cards dealt or played
+  let cards = d.querySelectorAll('.card');
+  // turn node list into an array
+  let cardsArray = Array.prototype.slice.call(cards);
+  for (let card in cardsArray) {
+    card = cardsArray[card];
+    if (card.dataset.hand == '#bh' && isBlueTurn) {
+      card.dataset.facedown = 'false';
+      card.dataset.owner = 'blue';
+      card.addEventListener('click', select);
+    } else if (card.dataset.hand == '#rh' && !isBlueTurn) {
+      card.dataset.facedown = 'false';
+      card.dataset.owner = 'red';
+      card.addEventListener('click', select);
+    } else if (card.dataset.played == 'true') {
+      card.dataset.facedown = 'false';
+    } else {
+      card.dataset.facedown = 'true';
+    }
+  }
+}
+
+//---------------Gameplay Functions---------------//
+
 function select(event) {
   // get card clicked
   let element = event.target;
@@ -421,11 +418,11 @@ function select(event) {
     // unselect card and return click to playable cards
     element.dataset.selected = 'false';
       if (isBlueTurn == true) {
-        bindClick('#rh .card');
-        unbindClick('#bh .card');
-      } else if (isBlueTurn !== true) {
         bindClick('#bh .card');
         unbindClick('#rh .card');
+      } else if (isBlueTurn !== true) {
+        bindClick('#rh .card');
+        unbindClick('#bh .card');
   }
   } else {
     // select card and disable click to other playable cards
@@ -434,7 +431,6 @@ function select(event) {
   }
 }
 
-// place card
 function placeCard(event) {
   // get selected card and it's HTML data
   let source = d.querySelector('.card[data-selected="true"]');
@@ -449,22 +445,11 @@ function placeCard(event) {
   dest.dataset.played = 'true';
   // remove played card from hand
   source.remove();
-  // switch turns after card is played
-  evaluateBattles(dest);
-  flipCards();
-  checkForEmptyCells();
+  processBattles(dest);
+  endTurn();
 }
 
-function switchTurns() {
-  if (isBlueTurn) {
-    isBlueTurn = false;
-  } else if (!isBlueTurn) {
-    isBlueTurn = true;
-  }
-}
-
-// // evaluate competiting values
-function evaluateBattles(dest) {
+function processBattles(dest) {
   // turn cell id number of target cell into integer
   let destCell = parseInt(dest.dataset.cell);
   // store starting ownership for repeat use in evaluations
@@ -473,79 +458,71 @@ function evaluateBattles(dest) {
   let cellArray = Array.prototype.slice.call(cellElem);
   // map placed cards html to grid location
   let placedCard = [...dest.children].map(cont => cont.innerHTML);
-  // remove img from array
+  // remove img container from array
   placedCard.shift();
+  // set direction to a variable based on destination cell of placed card
+  let up = (destCell - 3);
+  let left = (destCell - 1);
+  let right = (destCell + 1);
+  let down = (destCell + 3);
   // loop through cells in grid
   for (let cell in cellArray) {
     cell = cellArray[cell];
-    // set value directions to variable based on destination cell for placed card
-    // use destination cell with cellArray to determine competing cards location
-    // !== '' checks for empty space to skip evaluation
-    // cellArray index is adjusted by -1 in comparision to value directions since cellArray begins at 0, not 1;
-    let up = (destCell - 3);
-    let left = (destCell - 1);
-    let right = (destCell + 1);
-    let down = (destCell + 3);
-    if (cell.dataset.cell == up && cell.innerText !== '') {
-      let upCardValues = [...cellArray[(destCell - 4)].innerText].filter(item => item !== '\n');
-      console.log('up battle', placedCard[0], 'vs.', upCardValues[3]);
+    // touching cell variables. reassigned after each loop.
+    let touchingCell = cell.dataset.cell;
+    let text = cell.innerText;
+    let touchingOwner = cell.dataset.owner;
+    // check touching cells direction and if it is empty.
+    if (touchingCell == up && text !== '') {
+      let upCardValues = [...cellArray[up].innerText].filter(item => item !== '\n');
       if (placedCard[0] > upCardValues[3]) {
-        console.log('you win');
         cell.dataset.owner = owner ;
-      } else if (placedCard[0] == upCardValues[3]) {
-        console.log('draw');
       } else if (placedCard[0] < upCardValues[3]) {
-        console.log('you lose');
-        dest.dataset.owner  = cell.dataset.owner;
+        dest.dataset.owner  = touchingOwner;
       }
     }
-    if (cell.dataset.cell == left && cell.innerText !== '' && destCell !== 1 && destCell !== 4 && destCell !== 7) {
-      let leftCardValues = [...cellArray[(destCell - 2)].innerText].filter(item => item !== '\n');
-      console.log('left battle', placedCard[1], 'vs.', leftCardValues[2]);
+    if (touchingCell == left && text !== '' && destCell !== 3 && destCell !== 6) {
+      let leftCardValues = [...cellArray[left].innerText].filter(item => item !== '\n');
       if (placedCard[1] > leftCardValues[2]) {
-        console.log('you win');
         cell.dataset.owner = owner ;
-      } else if (placedCard[1] == leftCardValues[2]) {
-        console.log('draw');
       } else if (placedCard[1] < leftCardValues[2]) {
-        console.log('you lose');
-        dest.dataset.owner  = cell.dataset.owner;
-        console.log(owner)
+        dest.dataset.owner  = touchingOwner;
       }
     }
-    if (cell.dataset.cell == right && cell.innerText !== '' && destCell !== 3 && destCell !== 6 && destCell !== 9) {
-      let rightCardValues = [...cellArray[destCell].innerText].filter(item => item !== '\n');
-      console.log('right battle', placedCard[2], 'vs.', rightCardValues[1]);
+    if (touchingCell == right && text !== '' && destCell !== 2 && destCell !== 5) {
+      let rightCardValues = [...cellArray[right].innerText].filter(item => item !== '\n');
       if (placedCard[2] > rightCardValues[1]) {
-        console.log('you win');
         cell.dataset.owner = owner ;
-      } else if (placedCard[2] == rightCardValues[1]) {
-        console.log('draw');
       } else if (placedCard[2] < rightCardValues[1]) {
-        console.log('you lose');
-        dest.dataset.owner  = cell.dataset.owner;
-        console.log(owner)
+        dest.dataset.owner  = touchingOwner;
       }
     }
-    if (cell.dataset.cell == down && cell.innerText !== '') {
-      let downCardValues = [...cellArray[(destCell + 2)].innerText].filter(item => item !== '\n');
-      console.log('down battle', placedCard[3], 'vs.', downCardValues[0]);
+    if (touchingCell == down && text !== '') {
+      let downCardValues = [...cellArray[down].innerText].filter(item => item !== '\n');
       if (placedCard[3] > downCardValues[0]) {
-        console.log('you win');
         cell.dataset.owner = owner;
-      } else if (placedCard[3] == downCardValues[0]) {
-        console.log('draw');
       } else if (placedCard[3] < downCardValues[0]) {
-        console.log('you lose');
-        dest.dataset.owner  = cell.dataset.owner;
+        dest.dataset.owner  = touchingOwner;
       }
     }
   }
 }
 
 // // check for game winner
-// function checkForWin() {
-// }
+function checkForWin() {
+  let blueCards = d.querySelectorAll('[data-owner="blue"]');
+  let redCards = d.querySelectorAll('[data-owner="red"]');
+  if (cellsPlayed == 9) {
+    if (blueCards.length > redCards.length) {
+      d.querySelector('.blue-win').style.display = "flex";
+    } else if (blueCards.length < redCards.length) {
+      d.querySelector('.red-win').style.display = "flex";
+    } else if (blueCards.length = redCards.length) {
+      d.querySelector('.draw').style.display = "flex";
+    }
+  }
+}
+
 
 
 // start game
