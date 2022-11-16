@@ -3,3 +3,6 @@
 
 # ignore console log html
 /console.html
+
+# ignore vs code settings
+/.vscode

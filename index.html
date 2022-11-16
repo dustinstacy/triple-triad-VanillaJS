@@ -1,82 +1,67 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=yes">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=yes"
+    />
+    <link rel="stylesheet" href="style.css" />
     <title>Triple Triad v0.2</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="start">
-        <img src="./images/triadlogo.png" alt="">
-        <button onclick="startGame()" type="button">Start</button>
+      <img src="./images/triadlogo.png" alt="" />
+      <button onclick="startGame()" type="button">Start</button>
     </div>
 
     <div class="table">
+      <div class="red-bar">
+        <div id="rd" class="red-deck"></div>
+        <ul id="rh" class="red-hand"></ul>
+      </div>
 
-        <div class="red-bar">
-            <div id="rd" class="red-deck">
-            </div>
-            <ul id="rh" class="red-hand">
-            </ul>
+      <div class="board">
+        <div id="grid" class="grid">
+          <div class="cell" data-cell="0"></div>
+          <div class="cell" data-cell="1"></div>
+          <div class="cell" data-cell="2"></div>
+          <div class="cell" data-cell="3"></div>
+          <div class="cell" data-cell="4"></div>
+          <div class="cell" data-cell="5"></div>
+          <div class="cell" data-cell="6"></div>
+          <div class="cell" data-cell="7"></div>
+          <div class="cell" data-cell="8"></div>
         </div>
+      </div>
 
-        <div class="board">
-            <div id="grid" class="grid">
-                <div class="cell" data-cell="0">
-                </div>
-                <div class="cell" data-cell="1">
-                </div>
-                <div class="cell" data-cell="2">
-                </div>
-                <div class="cell" data-cell="3">
-                </div>
-                <div class="cell" data-cell="4">
-                </div>
-                <div class="cell" data-cell="5">
-                </div>
-                <div class="cell" data-cell="6">
-                </div>
-                <div class="cell" data-cell="7">
-                </div>
-                <div class="cell" data-cell="8">
-                </div>
-            </div>
-        </div>
-
-        <div class="blue-bar">
-            <ul id="bh" class="blue-hand">
-            </ul>
-            <div id="bd" class="blue-deck">
-            </div>
-        </div>
-
+      <div class="blue-bar">
+        <ul id="bh" class="blue-hand"></ul>
+        <div id="bd" class="blue-deck"></div>
+      </div>
     </div>
 
-    <ul class="template">
-    </ul>
+    <ul class="template"></ul>
 
     <div class="game-over">
+      <ul class="blue-win">
+        Blue Wins!
+      </ul>
 
-        <ul class="blue-win">
-            Blue Wins!
-        </ul>
+      <ul class="red-win">
+        Red Wins!
+      </ul>
 
-        <ul class="red-win">
-            Red Wins!
-        </ul>
+      <ul class="draw">
+        Draw
+      </ul>
 
-        <ul class="draw">
-            Draw
-        </ul>
-
-        <button class="play-again" onclick="newGame()" type="button">Play Again?</button>
-
+      <button class="play-again" onclick="newGame()" type="button">
+        Play Again?
+      </button>
     </div>
 
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>
