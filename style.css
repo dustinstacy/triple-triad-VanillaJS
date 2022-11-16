@@ -319,6 +319,7 @@ span {
 
     .start button {
         width: 30vw;
+        padding-left: 0;
     }
 
     .play-again {
