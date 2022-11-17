@@ -228,9 +228,9 @@ div[data-owner="red"] {
   /* transition: transform 0.5s; */
 }
 
-/* .card[data-flipped="true"] {
+.card[data-flipped="true"] {
   transform: rotateY(360deg);
-} */
+}
 
 /* face down card elements */
 .card[data-facedown="true"] {

@@ -925,32 +925,26 @@ function processBattles(dest) {
     // check touching cells direction and if it is empty.
     if (touchingCell == up && text !== "") {
       let upCardValues = [...cellArray[up].innerText].filter((item) => item !== "\n");
-      if (placedCard[0] > upCardValues[3]) {
-        cell.dataset.owner = owner;
-        cell.dataset.flipped = "true";
-      }
+      evaluateValues(placedCard[0], upCardValues[3], cell, owner);
     }
     if (touchingCell == left && text !== "" && destCell !== 3 && destCell !== 6) {
       let leftCardValues = [...cellArray[left].innerText].filter((item) => item !== "\n");
-      if (placedCard[1] > leftCardValues[2]) {
-        cell.dataset.owner = owner;
-        cell.dataset.flipped = "true";
-      }
+      evaluateValues(placedCard[1], leftCardValues[2], cell, owner);
     }
     if (touchingCell == right && text !== "" && destCell !== 2 && destCell !== 5) {
       let rightCardValues = [...cellArray[right].innerText].filter((item) => item !== "\n");
-      if (placedCard[2] > rightCardValues[1]) {
-        cell.dataset.owner = owner;
-        cell.dataset.flipped = "true";
-      }
+      evaluateValues(placedCard[2], rightCardValues[1], cell, owner);
     }
     if (touchingCell == down && text !== "") {
       let downCardValues = [...cellArray[down].innerText].filter((item) => item !== "\n");
-      if (placedCard[3] > downCardValues[0]) {
-        cell.dataset.owner = owner;
-        cell.dataset.flipped = "true";
-      }
+      evaluateValues(placedCard[3], downCardValues[0], cell, owner);
     }
+  }
+}
+
+function evaluateValues(cardA, cardB, cell, owner) {
+  if (cardA > cardB) {
+    cell.dataset.owner = owner;
   }
 }
 
@@ -1005,10 +999,6 @@ function clearBoard() {
   });
 }
 
-// function resetFlips() {
-//   let cellArray = Array.prototype.slice.call(cellElem);
-//   for (let cell in cellArray) {
-//     cell = cellArray[cell];
-//     cell.dataset.flipped = "false";
-//   }
+// function flip(cell) {
+//   cell.dataset.flipped = "true";
 // }
