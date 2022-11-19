@@ -216,7 +216,6 @@ div[data-owner="blue"] {
   background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(10, 109, 245, 1) 100%);
   background-size: cover;
   background-repeat: no-repeat;
-  /* transition: transform 0.5s; */
 }
 
 /* redonent owned card background */
@@ -225,11 +224,16 @@ div[data-owner="red"] {
   background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 0, 0, 1) 100%);
   background-size: cover;
   background-repeat: no-repeat;
-  /* transition: transform 0.5s; */
 }
 
 .card[data-flipped="true"] {
   transform: rotateY(360deg);
+  transition: 0.5s;
+}
+
+.card[data-flipped="false"] {
+  transform: inherit;
+  transition: 0s;
 }
 
 /* face down card elements */
