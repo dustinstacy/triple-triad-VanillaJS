@@ -881,6 +881,7 @@ function select(event) {
     element.dataset.selected = "true";
     unbindClick('.card[data-selected="false"]');
   }
+  resetFlips();
 }
 
 function placeCard(event) {
@@ -892,6 +893,7 @@ function placeCard(event) {
   // transfer card html to cell html
   dest.innerHTML = sourceHTML;
   dest.dataset.owner = source.dataset.owner;
+  dest.dataset.flipped = "false";
   // add classes to played cell
   dest.className = "card";
   dest.dataset.played = "true";
@@ -922,20 +924,21 @@ function processBattles(dest) {
     // touching cell variables. reassigned after each loop.
     let touchingCell = cell.dataset.cell;
     let text = cell.innerText;
+    let touchingOwner = cell.dataset.owner;
     // check touching cells direction and if it is empty.
-    if (touchingCell == up && text !== "") {
+    if (touchingCell == up && text !== "" && touchingOwner !== owner) {
       let upCardValues = [...cellArray[up].innerText].filter((item) => item !== "\n");
       evaluateValues(placedCard[0], upCardValues[3], cell, owner);
     }
-    if (touchingCell == left && text !== "" && destCell !== 3 && destCell !== 6) {
+    if (touchingCell == left && text !== "" && destCell !== 3 && destCell !== 6 && touchingOwner !== owner) {
       let leftCardValues = [...cellArray[left].innerText].filter((item) => item !== "\n");
       evaluateValues(placedCard[1], leftCardValues[2], cell, owner);
     }
-    if (touchingCell == right && text !== "" && destCell !== 2 && destCell !== 5) {
+    if (touchingCell == right && text !== "" && destCell !== 2 && destCell !== 5 && touchingOwner !== owner) {
       let rightCardValues = [...cellArray[right].innerText].filter((item) => item !== "\n");
       evaluateValues(placedCard[2], rightCardValues[1], cell, owner);
     }
-    if (touchingCell == down && text !== "") {
+    if (touchingCell == down && text !== "" && touchingOwner !== owner) {
       let downCardValues = [...cellArray[down].innerText].filter((item) => item !== "\n");
       evaluateValues(placedCard[3], downCardValues[0], cell, owner);
     }
@@ -945,6 +948,7 @@ function processBattles(dest) {
 function evaluateValues(cardA, cardB, cell, owner) {
   if (cardA > cardB) {
     cell.dataset.owner = owner;
+    flip(cell);
   }
 }
 
@@ -999,6 +1003,17 @@ function clearBoard() {
   });
 }
 
-// function flip(cell) {
-//   cell.dataset.flipped = "true";
-// }
+function flip(cell) {
+  if ((cell.dataset.flipped = "false")) {
+    cell.dataset.flipped = "true";
+  } else if ((cell.dataset.flipped = "true")) {
+    cell.dataset.flipped = "false";
+  }
+}
+
+function resetFlips() {
+  let cellArray = Array.prototype.slice.call(cellElem);
+  cellArray.forEach((cell) => {
+    cell.dataset.flipped = "false";
+  });
+}
