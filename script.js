@@ -869,19 +869,10 @@ function select(event) {
   if (element.dataset.selected === "true") {
     // unselect card and return click to playable cards
     element.dataset.selected = "false";
-    if (isBlueTurn == true) {
-      bindClick("#bh .card");
-      unbindClick("#rh .card");
-    } else if (isBlueTurn !== true) {
-      bindClick("#rh .card");
-      unbindClick("#bh .card");
-    }
   } else {
     // select card and disable click to other playable cards
     element.dataset.selected = "true";
-    unbindClick('.card[data-selected="false"]');
   }
-  resetFlips();
 }
 
 function placeCard(event) {
@@ -927,19 +918,39 @@ function processBattles(dest) {
     let touchingOwner = cell.dataset.owner;
     // check touching cells direction and if it is empty.
     if (touchingCell == up && text !== "" && touchingOwner !== owner) {
-      let upCardValues = [...cellArray[up].innerText].filter((item) => item !== "\n");
+      let upCardValues = [...cellArray[up].innerText].filter(
+        (item) => item !== "\n"
+      );
       evaluateValues(placedCard[0], upCardValues[3], cell, owner);
     }
-    if (touchingCell == left && text !== "" && destCell !== 3 && destCell !== 6 && touchingOwner !== owner) {
-      let leftCardValues = [...cellArray[left].innerText].filter((item) => item !== "\n");
+    if (
+      touchingCell == left &&
+      text !== "" &&
+      destCell !== 3 &&
+      destCell !== 6 &&
+      touchingOwner !== owner
+    ) {
+      let leftCardValues = [...cellArray[left].innerText].filter(
+        (item) => item !== "\n"
+      );
       evaluateValues(placedCard[1], leftCardValues[2], cell, owner);
     }
-    if (touchingCell == right && text !== "" && destCell !== 2 && destCell !== 5 && touchingOwner !== owner) {
-      let rightCardValues = [...cellArray[right].innerText].filter((item) => item !== "\n");
+    if (
+      touchingCell == right &&
+      text !== "" &&
+      destCell !== 2 &&
+      destCell !== 5 &&
+      touchingOwner !== owner
+    ) {
+      let rightCardValues = [...cellArray[right].innerText].filter(
+        (item) => item !== "\n"
+      );
       evaluateValues(placedCard[2], rightCardValues[1], cell, owner);
     }
     if (touchingCell == down && text !== "" && touchingOwner !== owner) {
-      let downCardValues = [...cellArray[down].innerText].filter((item) => item !== "\n");
+      let downCardValues = [...cellArray[down].innerText].filter(
+        (item) => item !== "\n"
+      );
       evaluateValues(placedCard[3], downCardValues[0], cell, owner);
     }
   }
