@@ -167,6 +167,7 @@ button:hover {
   text-align: center;
   justify-content: center;
   border-radius: 3%;
+  padding: 5%;
 }
 
 .red-win {
@@ -178,6 +179,7 @@ button:hover {
   text-align: center;
   justify-content: center;
   border-radius: 3%;
+  padding: 5%;
 
 }
 
@@ -190,6 +192,7 @@ button:hover {
   text-align: center;
   justify-content: center;
   border-radius: 3%;
+  padding: 5%;
 }
 
 /*************** card elements ****************/
