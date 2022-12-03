@@ -341,8 +341,10 @@ span {
   }
 
   .table {
-    height: 98vh;
+    height: 100vh;
     flex-direction: column;
+    box-sizing: border-box;
+    justify-content: space-around;
   }
 
   .grid {
