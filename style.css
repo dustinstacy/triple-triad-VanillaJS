@@ -1,7 +1,7 @@
 /***************** font ******************/
 @font-face {
-  font-family: "grunge";
-  src: url("./fonts/grunge.ttf");
+  font-family: "carpet";
+  src: url("./fonts/Carpet.ttf");
 }
 
 /********** layout elements **********/
@@ -12,6 +12,7 @@ body {
   margin: 0;
   height: 100vh;
   width: 100vw;
+  box-sizing: border-box;
   background-image: url("./images/canvas2.png");
   background-position: center;
   background-size: cover;
@@ -107,12 +108,13 @@ ul {
 
 button {
   height: 8vh;
-  line-height: 9vh;
+  line-height: 8vh;
   border: 3px solid black;
   border-radius: 6%;
   color: white;
   font-size: 3vw;
-  font-family: "grunge";
+  font-family: "carpet";
+  text-align: center;
   text-shadow: 3px 3px 3px black, -3px -3px 3px black;
   background-color: rgb(70, 54, 29);
 }
@@ -153,25 +155,41 @@ button:hover {
 .red-win,
 .draw {
   font-size: 15vw;
-  font-family: "grunge";
+  font-family: "carpet";
 }
 
 .blue-win {
   display: none;
   color: rgba(10, 109, 245);
   text-shadow: 6px 6px 6px black, -6px -6px 6px black;
+  background: rgb(70, 54, 29, 0.8);
+  border: 3px solid black;
+  text-align: center;
+  justify-content: center;
+  border-radius: 3%;
 }
 
 .red-win {
   display: none;
   color: rgba(255, 0, 0);
   text-shadow: 6px 6px 6px black, -6px -6px 6px black;
+  background: rgb(70, 54, 29, 0.8);
+  border: 3px solid black;
+  text-align: center;
+  justify-content: center;
+  border-radius: 3%;
+
 }
 
 .draw {
   display: none;
   color: white;
   text-shadow: 6px 6px 6px black, -6px -6px 6px black;
+  background: rgb(70, 54, 29, 0.8);
+  border: 3px solid black;
+  text-align: center;
+  justify-content: center;
+  border-radius: 3%;
 }
 
 /*************** card elements ****************/
@@ -255,12 +273,12 @@ div[data-owner="red"] {
 /* card value elements */
 span {
   font-size: 0.925vw;
-  font-family: "grunge";
+  font-family: "carpet";
   position: absolute;
   right: 0;
   top: 0;
   margin-top: 8%;
-  margin-right: 11%;
+  margin-right: 12%;
   color: rgb(237, 234, 234);
   pointer-events: none;
 }
@@ -270,11 +288,11 @@ span {
 }
 
 .up {
-  margin-right: 1.5em;
+  margin-right: 1.575em;
 }
 
 .left {
-  margin-right: 2.2em;
+  margin-right: 2.3em;
   margin-top: 1.1em;
 }
 
@@ -283,7 +301,7 @@ span {
 }
 
 .down {
-  margin-right: 1.5em;
+  margin-right: 1.575em;
   margin-top: 1.7em;
 }
 
@@ -296,8 +314,8 @@ span {
 
   button {
     height: 6vh;
-    line-height: 6vh;
-    font-size: 5vw;
+    line-height: 5.5vh;
+    font-size: 6vw;
   }
 
   .start button {
@@ -313,7 +331,10 @@ span {
   .blue-win,
   .red-win,
   .draw {
+    width: 85vw;
+    height: 40vw;
     font-size: 20vw;
+    text-align: center;
   }
 
   .table {
@@ -354,10 +375,12 @@ span {
 
   span {
     font-size: 2.325vw;
+    font-weight: bold;
   }
 
   .card[data-played="true"] span {
     font-size: 2.65vw;
+    font-weight: bold;
   }
 
   #bh .card[data-selected="true"] {
