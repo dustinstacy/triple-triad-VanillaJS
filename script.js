@@ -1,3 +1,9 @@
+window.addEventListener("load", function () {
+  setTimeout(function () {
+    // Hide the address bar:
+    window.scrollTo(0, 1);
+  }, 0);
+});
 //--------------- Constants ------------//
 
 const HAND_COUNT = 5;
